@@ -356,4 +356,4 @@ describe('Testing challenge 12', () => {
 
 function createSnippetWithJQuery(html) {
   return cheerio.load(html);
-};
+}
