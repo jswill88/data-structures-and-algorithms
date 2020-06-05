@@ -22,9 +22,7 @@ let $ = createSnippetWithJQuery(`
 </section>
 `);
 
-const generateSubmitButton = () => {
-  // Solution code here...
-}
+const generateSubmitButton = () => $('form').append('<button>submit</button>');
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 2
@@ -38,9 +36,7 @@ For example:
 'hello world' returns false
 ------------------------------------------------------------------------------------------------ */
 
-const isNum = (input) => {
-  // Solution code here...
-};
+const isNum = (input) => /\d/.test(input);
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 3
@@ -51,7 +47,12 @@ Return an array containing all the matches.
 ------------------------------------------------------------------------------------------------ */
 
 const isCapitalized = (str) => {
-  // Solution code here...
+  let regex = /[A-Z]\w*/g;
+  let arr =  str.match(regex);
+  if (!arr) {
+    arr = [];
+  }
+  return arr;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -61,7 +62,14 @@ Write a function named citiesAtoJ that takes in an array of city names and uses 
 ------------------------------------------------------------------------------------------------ */
 
 const citiesAtoJ = (arr) => {
-  // Solution code here...
+  let newArr = [];
+  // let regex = /^[A-J]/
+  arr.forEach(value => {
+    if (/^[A-J]/.test(value)){
+      newArr.push(value);
+    }
+  })
+  return newArr;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -107,7 +115,9 @@ For example, 'Welcome to Code 301!' will return 'W_lc_m_ t_ C_d_ 301!'.
 ------------------------------------------------------------------------------------------------ */
 
 let hangman = (str) => {
-  // Solution code here...
+  let regex = /[aeiou]/;
+  str.replace(regex,'_');
+  return str;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -219,7 +229,7 @@ xdescribe('Testing challenge 6', () => {
   });
 });
 
-xdescribe('Testing challenge 7', () => {
+describe('Testing challenge 7', () => {
   let startString = 'This is a regex challenge. We are trying to create a hangman phrase where all of the vowels are missing!';
 
   test('It should remove the vowels from the hangman string and replace them with underscores', () => {
