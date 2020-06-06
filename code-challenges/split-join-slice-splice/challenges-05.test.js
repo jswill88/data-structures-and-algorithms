@@ -64,7 +64,7 @@ const howMuchPencil = (str) => {
   let loseLetter = str;
   let result = [str];
   while (loseLetter) {
-    loseLetter = loseLetter.slice(1,loseLetter.length);
+    loseLetter = loseLetter.slice(1, loseLetter.length);
     result.push(loseLetter);
   }
   return result;
@@ -125,8 +125,8 @@ const listFoods = (recipe) => {
   let result = [];
   recipe.ingredients.forEach(ingredient => {
     let space = 0;
-    for(let i = 0; i < ingredient.length; i++) {
-      if(ingredient[i] === ' ') {
+    for (let i = 0; i < ingredient.length; i++) {
+      if (ingredient[i] === ' ') {
         space++;
       }
       if (space === 2) {
@@ -182,7 +182,12 @@ For example:
 ------------------------------------------------------------------------------------------------ */
 
 const removeEvenValues = (arr) => {
-  // Solution code here...
+  arr.forEach((value, index) => {
+    if (!(value % 2)) {
+      arr.splice(index, 1);
+      removeEvenValues(arr);
+    }
+  })
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -302,7 +307,7 @@ xdescribe('Testing challenge 6', () => {
   });
 });
 
-xdescribe('Testing challenge 7', () => {
+describe('Testing challenge 7', () => {
   test('It should remove the even numbers from the array', () => {
     let list = [1, 2, 3, 4, 5, 6];
     removeEvenValues(list);
@@ -356,6 +361,6 @@ xdescribe('Testing challenge 11', () => {
   });
 });
 
-function createSnippetWithJQuery(html){
+function createSnippetWithJQuery(html) {
   return cheerio.load(html);
 };
