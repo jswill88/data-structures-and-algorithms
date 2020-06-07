@@ -147,9 +147,7 @@ You may also use other string or array methods.
 ------------------------------------------------------------------------------------------------ */
 
 const splitFoods = (recipe) => {
-  let result = [];
-  // Solution code here...
-  return result;
+
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -164,7 +162,15 @@ Return a new array containing just the verbs. For example, ['Mix until evenly di
 
 const stepActions = (recipe) => {
   let result = [];
-  // Solution code here...
+  recipe.steps.forEach(step => {
+    for(let i = 0; i < step.length; i++) {
+      if (step[i] === ' '){
+        let action = step.slice(0,i);
+        result.push(action);
+        break;
+      }
+    }
+  })
   return result;
 };
 
@@ -238,7 +244,14 @@ For example, removeVowels('gregor') returns 'grgr'.
 ------------------------------------------------------------------------------------------------ */
 
 const removeVowels = (str) => {
-  // Solution code here...
+  let vowels = ['a','e','i','o','u'];
+  let noVowels = '';
+  for (let i = 0; i < str.length; i++) {
+    if (!vowels.includes(str[i])) {
+      noVowels += str[i];
+    }
+  }
+  return noVowels;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -252,7 +265,15 @@ Similarly, extractVowels('The quick brown fox') returns ['Th qck brwn fx', 'eioo
 ------------------------------------------------------------------------------------------------ */
 
 const extractVowels = (str) => {
-  // Solution code here...
+  let vowels = ['a','e','i','o','u'];
+  let noVowels = removeVowels(str);
+  let allVowels = '';
+  for (let i = 0; i < str.length; i++) {
+    if (vowels.includes(str[i])) {
+      allVowels += str[i];
+    }
+  }
+  return [noVowels,allVowels];
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -306,7 +327,7 @@ xdescribe('Testing challenge 5', () => {
   });
 });
 
-xdescribe('Testing challenge 6', () => {
+describe('Testing challenge 6', () => {
   test('It should return a list of recipe steps', () => {
     expect(stepActions(gruffaloCrumble)).toStrictEqual(['Pre-heat', 'De-prickle', 'Sprinkle', 'Mix', 'Grease', 'Combine', 'Fold', 'Spread', 'Bake']);
     expect(stepActions(gruffaloCrumble).length).toStrictEqual(9);
@@ -349,7 +370,7 @@ describe('Testing challenge 9', () => {
   });
 });
 
-xdescribe('Testing challenge 10', () => {
+describe('Testing challenge 10', () => {
   test('It should return the string without vowels', () => {
     expect(removeVowels('gregor')).toStrictEqual('grgr');
     expect(removeVowels('gregor').length).toStrictEqual(4);
@@ -358,12 +379,12 @@ xdescribe('Testing challenge 10', () => {
   });
 });
 
-xdescribe('Testing challenge 11', () => {
+describe('Testing challenge 11', () => {
   test('It should return the string without vowels', () => {
     expect(extractVowels('gregor')).toStrictEqual(['grgr', 'eo']);
     expect(extractVowels('gregor').length).toStrictEqual(2);
 
-    expect(extractVowels('The quick brown fox')).toStrictEqual(['Th qck brwn fx', 'eioou']);
+    expect(extractVowels('The quick brown fox')).toStrictEqual(['Th qck brwn fx', 'euioo']);
   });
 });
 
