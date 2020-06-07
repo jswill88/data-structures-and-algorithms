@@ -147,7 +147,13 @@ You may also use other string or array methods.
 ------------------------------------------------------------------------------------------------ */
 
 const splitFoods = (recipe) => {
-
+  let result = [];
+  recipe.ingredients.forEach(ingredient => {
+    let words = ingredient.split(' ');
+    words.splice(0,2);
+    result.push(words.join(' '));
+  })
+  return result;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -163,9 +169,9 @@ Return a new array containing just the verbs. For example, ['Mix until evenly di
 const stepActions = (recipe) => {
   let result = [];
   recipe.steps.forEach(step => {
-    for(let i = 0; i < step.length; i++) {
-      if (step[i] === ' '){
-        let action = step.slice(0,i);
+    for (let i = 0; i < step.length; i++) {
+      if (step[i] === ' ') {
+        let action = step.slice(0, i);
         result.push(action);
         break;
       }
@@ -244,7 +250,7 @@ For example, removeVowels('gregor') returns 'grgr'.
 ------------------------------------------------------------------------------------------------ */
 
 const removeVowels = (str) => {
-  let vowels = ['a','e','i','o','u'];
+  let vowels = ['a', 'e', 'i', 'o', 'u'];
   let noVowels = '';
   for (let i = 0; i < str.length; i++) {
     if (!vowels.includes(str[i])) {
@@ -265,7 +271,7 @@ Similarly, extractVowels('The quick brown fox') returns ['Th qck brwn fx', 'eioo
 ------------------------------------------------------------------------------------------------ */
 
 const extractVowels = (str) => {
-  let vowels = ['a','e','i','o','u'];
+  let vowels = ['a', 'e', 'i', 'o', 'u'];
   let noVowels = removeVowels(str);
   let allVowels = '';
   for (let i = 0; i < str.length; i++) {
@@ -273,7 +279,7 @@ const extractVowels = (str) => {
       allVowels += str[i];
     }
   }
-  return [noVowels,allVowels];
+  return [noVowels, allVowels];
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -321,7 +327,7 @@ describe('Testing challenge 4', () => {
   });
 });
 
-xdescribe('Testing challenge 5', () => {
+describe('Testing challenge 5', () => {
   test('It should return a list of foods', () => {
     expect(splitFoods(gruffaloCrumble)).toStrictEqual(['Gruffalo', 'oats', 'brown sugar', 'flour', 'pure maple syrup', 'chopped nuts', 'baking soda', 'baking powder', 'cinnamon', 'melted butter', 'fresh water']);
   });
