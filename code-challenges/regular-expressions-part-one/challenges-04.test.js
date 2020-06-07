@@ -84,7 +84,7 @@ Do not use the vertical bar (pipe) in your pattern.
 ------------------------------------------------------------------------------------------------ */
 
 const matchMonth = (input) => {
-  let regex = /^[Oo](ct)/; // Fail
+  let regex = /\b[Oo]ct(ober)?\b/;
   return regex.test(input);
 };
 
@@ -99,7 +99,7 @@ The expected output of "Hello, and have a wonderful day!" is ["and ", "have ", "
 ------------------------------------------------------------------------------------------------ */
 
 const noPunctuation = str => {
-  let regex = /([A-Za-z0-9]*[A-Za-z0-9]\s)/g;
+  let regex = /[A-Za-z0-9]*[A-Za-z0-9]\s/g;
   let arr =  str.match(regex);
   return arr;
 };
@@ -135,7 +135,7 @@ Hint: All of these words end with the letters "ells".
 const seashells = 'She sells seashells by the seashore. The shells she sells are surely seashells. So if she sells shells on the seashore, I\'m sure she sells seashore shells.';
 
 const findShells = (str) => {
-  let regex = /[sS]\w*(ells)/g;
+  let regex = /[sS]\w*ells/g;
   let arr =  str.match(regex);
   return arr;
 };
@@ -201,7 +201,7 @@ describe('Testing challenge 4', () => {
   });
 });
 
-xdescribe('Testing challenge 5', () => {
+describe('Testing challenge 5', () => {
   test('It should match any of the acceptable inputs', () => {
     expect(matchMonth('Oct')).toBeTruthy();
     expect(matchMonth('oct')).toBeTruthy();
