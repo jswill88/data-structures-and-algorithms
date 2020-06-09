@@ -122,7 +122,7 @@ const hasChildrenValues = (arr, character) => {
   let hasKids = false;
   arr.forEach(person => {
     Object.values(person)[0] === character &&
-    Object.values(person)[3].length > 0 ?
+    Object.values(person)[2].length > 0 ?
       hasKids = true : 0;
   })
   return hasKids;
@@ -137,7 +137,14 @@ The input and output of this function are the same as the input and output from 
 ------------------------------------------------------------------------------------------------ */
 
 const hasChildrenEntries = (arr, character) => {
-  // Solution code here...
+  let hasKids = false;
+  // let compArr = ['name',character]
+  arr.forEach(person => {
+    Object.entries(person)[0][1] === character &&
+    Object.entries(person)[2][1].length > 0 ?
+      hasKids = true : hasKids;
+  })
+  return hasKids;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -232,7 +239,7 @@ describe('Testing challenge 4', () => {
   });
 });
 
-xdescribe('Testing challenge 5', () => {
+describe('Testing challenge 5', () => {
   test('It should return true for characters that have children', () => {
     expect(hasChildrenEntries(characters, 'Eddard')).toBeTruthy();
   });
