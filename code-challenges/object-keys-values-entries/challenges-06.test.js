@@ -86,7 +86,8 @@ Write a function named getCourseKeys that takes in the courseInfo object and ret
 
 For example: (['name', 'duration', 'topics', 'finalExam']).
 ------------------------------------------------------------------------------------------------ */
-const courseInfo = { name: 'Code 301', duration: { dayTrack: '4 weeks', eveningTrack: '8 weeks'},
+const courseInfo = {
+  name: 'Code 301', duration: { dayTrack: '4 weeks', eveningTrack: '8 weeks' },
   topics: ['SMACSS', 'APIs', 'NodeJS', 'SQL', 'jQuery', 'functional programming'],
   finalExam: true
 };
@@ -122,7 +123,7 @@ const hasChildrenValues = (arr, character) => {
   let hasKids = false;
   arr.forEach(person => {
     Object.values(person)[0] === character &&
-    Object.values(person)[2].length > 0 ?
+      Object.values(person)[2].length > 0 ?
       hasKids = true : 0;
   })
   return hasKids;
@@ -141,7 +142,7 @@ const hasChildrenEntries = (arr, character) => {
   // let compArr = ['name',character]
   arr.forEach(person => {
     Object.entries(person)[0][1] === character &&
-    Object.entries(person)[2][1].length > 0 ?
+      Object.entries(person)[2][1].length > 0 ?
       hasKids = true : hasKids;
   })
   return hasKids;
@@ -154,8 +155,19 @@ Write a function named totalCharacters that takes in an array and returns the nu
 ------------------------------------------------------------------------------------------------ */
 
 const totalCharacters = (arr) => {
-  // Solution code here...
-};
+  let total = 0;
+  arr.forEach(character => {
+    Object.values(character).forEach(value => {
+      if(Array.isArray(value)) {
+        total += value.length;
+      } else if (typeof value === 'string') {
+        total += 1;
+      }
+    })
+    total -= 1;
+  });
+  return total;
+}
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 7 - Stretch Goal
@@ -249,7 +261,7 @@ describe('Testing challenge 5', () => {
   });
 });
 
-xdescribe('Testing challenge 6', () => {
+describe('Testing challenge 6', () => {
   test('It should return the number of characters in the array', () => {
     expect(totalCharacters(characters)).toStrictEqual(26);
   });
@@ -269,6 +281,6 @@ xdescribe('Testing challenge 8', () => {
 });
 
 
-function createSnippetWithJQuery(html){
+function createSnippetWithJQuery(html) {
   return cheerio.load(html);
 }
