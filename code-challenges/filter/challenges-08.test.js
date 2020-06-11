@@ -51,7 +51,9 @@ For example, filterStringsWithVowels('gregor','hound','xyz') returns ['gregor', 
 ------------------------------------------------------------------------------------------------ */
 
 
-const filterStringsWithVowels = arr => arr.filter(word => /[aeiou]/i.test(word));
+const filterStringsWithVowels = arr => arr
+  .filter(word => /[aeiou]/i
+    .test(word));
 
 
 /* ------------------------------------------------------------------------------------------------
@@ -62,8 +64,8 @@ Write a function named notInFirstArray that, given two arrays as input, uses fil
 For example, notInFirstArray([1,2,3], [1,2,3,4]) returns [4].
 ------------------------------------------------------------------------------------------------ */
 
-const notInFirstArray = (forbiddenValues, arr) => forbiddenValues && arr ? arr
-  .filter(num => (!forbiddenValues.includes(num))) : arr;
+const notInFirstArray = (forbiddenValues, arr) => forbiddenValues && arr
+  ? arr.filter(num => (!forbiddenValues.includes(num))) : arr;
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 5 - Stretch Goal
@@ -115,8 +117,9 @@ Write a function named getStatName that is an extension of your getBaseStatGreat
 For example, getStatName(snorlaxData.stats, 50) will return ['special-defense', 'special-attack'].
 ------------------------------------------------------------------------------------------------ */
 
-const getStatName = (arr, minBaseStat) => getBaseStatGreaterThan(arr,minBaseStat)
-  .map(stat => stat.stat.name);
+const getStatName = (arr, minBaseStat) =>
+  getBaseStatGreaterThan(arr,minBaseStat)
+    .map(stat => stat.stat.name);
 
 
 /* ------------------------------------------------------------------------------------------------
@@ -168,8 +171,8 @@ const characters = [
   },
 ];
 
-const getCharactersWithoutChildren = arr => arr
-  .filter(char => !char.children)
+const getCharactersWithoutChildren = arr =>
+  arr.filter(char => !char.children)
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 8 - Stretch Goal
