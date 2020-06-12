@@ -252,9 +252,12 @@ let starWarsData = [{
   gender: 'female'
 }];
 
-const returnNames = (arr) => {
-  // Solution code here...
-};
+const returnNames = (arr) =>
+  arr.reduce((numToChange, character) => {
+    numToChange.push(character.name);
+    return numToChange;
+  }, [])
+// Solution code here...
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 4
