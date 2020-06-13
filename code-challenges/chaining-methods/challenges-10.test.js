@@ -11,11 +11,11 @@ const createServer = () => {
   const express = require('express');
   const app = express();
 
-  app.get('/hello',(req,res) => res.status(200)
+  app.get('/hello', (req, res) => res.status(200)
     .send('HEYYY!!!!'));
-  app.get('/aboutme',(req,res) => res.status(200)
+  app.get('/aboutme', (req, res) => res.status(200)
     .send('I am from Kent, WA, and I like baseball and music'));
-  app.get('/favoritefoods',(req,res) => res.status(200)
+  app.get('/favoritefoods', (req, res) => res.status(200)
     .send([
       'pad thai',
       'burrito',
@@ -75,17 +75,14 @@ This function should then raise 2 to the power of the resulting numbers, returni
 For example, [ [0,2,5,4], [2,4,10], [] ] should return [ [1, 32], [1024], [] ].
 ------------------------------------------------------------------------------------------------ */
 
-const divisibleByFiveTwoToThePower = (input) => {
-  const array = input.map(value => {
-    return value.reduce((total, value) => {
-      if (!(value % 5) && typeof(value) === 'number') {
-        total.push(value);
+const divisibleByFiveTwoToThePower = (input) => input
+  .map(value => value
+    .reduce((total, value) => {
+      if (!(value % 5) && typeof value === 'number') {
+        total.push(Math.pow(2, value));
       }
       return total;
-    }, []).map(value => Math.pow(2, value));
-  })
-  return array;
-};
+    }, []));
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 5 - Stetch Goal
