@@ -76,12 +76,12 @@ For example, [ [0,2,5,4], [2,4,10], [] ] should return [ [1, 32], [1024], [] ].
 ------------------------------------------------------------------------------------------------ */
 
 const divisibleByFiveTwoToThePower = (input) => input
-  .map(value => value
-    .reduce((total, value) => {
+  .map(array => array
+    .reduce((subArray, value) => {
       if (!(value % 5) && typeof value === 'number') {
-        total.push(Math.pow(2, value));
+        subArray.push(Math.pow(2, value));
       }
-      return total;
+      return subArray;
     }, []));
 
 /* ------------------------------------------------------------------------------------------------
