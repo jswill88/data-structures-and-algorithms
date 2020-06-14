@@ -321,9 +321,13 @@ const characters = [
   },
 ];
 
-const countNumberOfChildren = (arr) => {
-  // Solution code here...
-};
+const countNumberOfChildren = (arr) => arr
+  .reduce((totalKids,obj) => {
+    if (obj.children) {
+      totalKids += obj.children.length;
+    }
+    return totalKids;
+  },0)
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 6 - Stretch Goal
@@ -334,7 +338,7 @@ Hint: The accumulator should begin as { count: 0, sum: 0 }
 ------------------------------------------------------------------------------------------------ */
 
 const calculateAverage = (arr) => {
-  // Solution code here...
+
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -477,7 +481,7 @@ describe('Testing challenge 4', () => {
   });
 });
 
-xdescribe('Testing challenge 5', () => {
+describe('Testing challenge 5', () => {
   test('It should return the total number of children', () => {
     expect(countNumberOfChildren(characters)).toStrictEqual(14);
   });
