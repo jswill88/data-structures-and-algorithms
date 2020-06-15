@@ -268,8 +268,8 @@ Note: You must use reduce for this challenge. You may not use the built-in .reve
 ------------------------------------------------------------------------------------------------ */
 
 const reversedString = (str) => {
-  const strArray = str.split('') ;
-  return strArray.reduce((changing,char) => char + changing,'')
+  const strArray = str.split('');
+  return strArray.reduce((changing, char) => char + changing, '')
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -322,12 +322,12 @@ const characters = [
 ];
 
 const countNumberOfChildren = (arr) => arr
-  .reduce((totalKids,obj) => {
+  .reduce((totalKids, obj) => {
     if (obj.children) {
       totalKids += obj.children.length;
     }
     return totalKids;
-  },0)
+  }, 0)
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 6 - Stretch Goal
@@ -337,9 +337,12 @@ Write a function that, given an array of numbers as input, uses reduce to calcul
 Hint: The accumulator should begin as { count: 0, sum: 0 }
 ------------------------------------------------------------------------------------------------ */
 
-const calculateAverage = (arr) => {
-
-};
+const calculateAverage = (arr) => arr
+  .reduce((avgObject, value) => {
+    avgObject.count++;
+    avgObject.sum += value;
+    return avgObject;
+  }, { count: 0, sum: 0 }).sum / arr.length;
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 7 - Stretch Goal
@@ -358,9 +361,13 @@ const isPrime = (value) => {
   return value > 1;
 };
 
-const countPrimeNumbers = (arr) => {
-  // Solution code here...
-};
+const countPrimeNumbers = (arr) => arr
+  .reduce((primes, value) => {
+    if (isPrime(value)) {
+      primes++;
+    }
+    return primes;
+  }, 0)
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 8 - Stretch Goal
@@ -401,10 +408,18 @@ const snorlaxData = {
   weight: 4600,
 };
 
-const extractStat = (statName, arr) => {
-  // Solution code here...
-};
-
+const extractStat = (statName, arr) => arr
+  .reduce((finalObj, currentObj) => {
+    if (statName === currentObj.stat.name) {
+      finalObj.stat = {
+        url: currentObj.stat.url,
+        name: currentObj.stat.name
+      };
+      finalObj.effort = currentObj.effort;
+      finalObj.baseStat = currentObj.baseStat;
+    }
+    return finalObj;
+  }, {});
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 9 - Stretch Goal
 
@@ -415,9 +430,13 @@ Write a function named extractChildren that, given the array of characters from 
 2) Then, uses reduce to return an array of all the children's names in the filtered array
 ------------------------------------------------------------------------------------------------ */
 
-const extractChildren = (arr) => {
-  // Solution code here...
-};
+const extractChildren = (arr) => arr
+  .reduce((children, currentObj) => {
+    if (/[Aa]/.test(currentObj.name) && currentObj.children) {
+      currentObj.children.forEach(child => children.push(child));
+    }
+    return children
+  }, [])
 
 /* ------------------------------------------------------------------------------------------------
 TESTS
@@ -487,25 +506,25 @@ describe('Testing challenge 5', () => {
   });
 });
 
-xdescribe('Testing challenge 6', () => {
+describe('Testing challenge 6', () => {
   test('It should return the average of the numbers in the array', () => {
     expect(calculateAverage([18, 290, 37, 4, 55, 16, 7, 85])).toStrictEqual(64);
   });
 });
 
-xdescribe('Testing challenge 7', () => {
+describe('Testing challenge 7', () => {
   test('It should return a count of the prime numbers in the array', () => {
     expect(countPrimeNumbers([1, 2, 13, 64, 45, 56, 17, 8])).toStrictEqual(3);
   });
 });
 
-xdescribe('Testing challenge 8', () => {
+describe('Testing challenge 8', () => {
   test('It should return any stats that match the input', () => {
     expect(extractStat('speed', snorlaxData.stats)).toStrictEqual({ stat: { url: 'https://pokeapi.co/api/v2/stat/6/', name: 'speed' }, effort: 5, baseStat: 30 });
   });
 });
 
-xdescribe('Testing challenge 9', () => {
+describe('Testing challenge 9', () => {
   test('It should return an array containing the names of the children', () => {
     expect(extractChildren(characters)).toStrictEqual(['Robb', 'Sansa', 'Arya', 'Bran', 'Rickon', 'Drogon', 'Rhaegal', 'Viserion', 'Margaery', 'Loras']);
     expect(extractChildren(characters).length).toStrictEqual(10);
