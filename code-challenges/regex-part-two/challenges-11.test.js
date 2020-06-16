@@ -11,9 +11,8 @@ should convert to ["Jane Doe", "James Bond"]
 Note the space in between first and last names.
 You can assume that neither firstName nor lastName will be blank
 ------------------------------------------------------------------------------------------------ */
-const toLastNames = people => {
-  // Solution code here...
-};
+const toLastNames = people => people
+  .map(person => `${person.firstName} ${person.lastName}`);
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 2
@@ -24,7 +23,8 @@ If the PIN is four numerical digits long, return true. Otherwise, return false.
 ------------------------------------------------------------------------------------------------ */
 
 const validatePin = (pin) => {
-  // Solution code here...
+  let regex = /\b\d{4}\b/;
+  return regex.test(pin);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -44,7 +44,8 @@ Note: if you ever need to validate an email using a regex in practice, the Inter
 ------------------------------------------------------------------------------------------------ */
 
 const validateEmail = (email) => {
-  // Solution code here...
+  let regex = /^[a-z0-9]+\.?[a-z0-9]+\@[a-z0-9]+\.(com|net|org)$/i;
+  return regex.test(email);
 };
 
 /* ------------------------------------------------------------------------------------------------
