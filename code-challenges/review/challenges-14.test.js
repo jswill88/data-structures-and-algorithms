@@ -11,9 +11,9 @@ any other route should return status of 404
 const createServer = () => {
   const express = require('express');
   const app = express();
-  app.get('/', (req,res) => res.status(200).send());
-  app.delete('/things/1',(req,res) => res.status(405).send());
-  app.get('*',(req,res) => res.status(404).send());
+  app.get('/', (req, res) => res.status(200).send());
+  app.delete('/things/1', (req, res) => res.status(405).send());
+  app.get('*', (req, res) => res.status(404).send());
   // solution code goes here ...
 
   var server = app.listen(3000, function () {
@@ -34,7 +34,7 @@ For example, ['apple', 'banana', 'MacGyver'] returns ['Apple', 'Banana', 'MacGyv
 const toTitleCase = (arr) => arr
   .map(title => title[0]
     .toUpperCase() + title
-    .slice(1,title.length))
+      .slice(1, title.length))
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 3
 
@@ -114,7 +114,7 @@ let biggerThanLuke = (arr) => {
         `${massArray} - ${obj.name}`
     }
     return massArray;
-  },'')
+  }, '')
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -131,15 +131,14 @@ Here is an example of the input:
 This data could be sorted by name or price.
 ------------------------------------------------------------------------------------------------ */
 
-const sortBy = (property, arr) => {
-  return arr.sort((a,b) => {
-    if(typeof arr[property] === 'number') {
-      return a[property] - b[property];
-    } else {
-      return a[property] > b[property] ? 1 : -1;
-    }
-  })
-};
+const sortBy = (property, arr) => arr.sort((a, b) => {
+  if (typeof arr[property] === 'number') {
+    return a[property] - b[property];
+  } else {
+    return a[property] > b[property] ? 1 : -1;
+  }
+})
+
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 5 - Stretch Goal
@@ -153,9 +152,8 @@ http://www.insecure.com returns false because the URL is not secure
 https://secure.com returns true because the URL is secure
 https:/missingslash.org returns false because the URL is malformed
 ------------------------------------------------------------------------------------------------ */
-const isSecure = (url) => {
-  // Solution code here...
-};
+const isSecure = (url) => /^https:\/\//.test(url);
+
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 6 - Stretch Goal
@@ -177,7 +175,27 @@ Here is a sample board:
 ------------------------------------------------------------------------------------------------ */
 
 const detectTicTacToeWin = (board) => {
-  // Solution code here...
+  let columns = [[],[],[]]
+  board.forEach(row => {
+    row.forEach((element,i) => columns[i].push(element));
+  })
+  let allChoices =
+    [
+      ...board,
+      ...columns,
+      [
+        board[0][0], board[1][1],board[2][2]
+      ],
+      [
+        board[2][0],board[1][1],board[0][2]
+      ]
+    ];
+  return allChoices.reduce((acc,winChance) => {
+    if (winChance[0] && winChance[0] === winChance[1] && winChance[0] === winChance[2]){
+      acc = true;
+    }
+    return acc;
+  }, false)
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -269,7 +287,7 @@ describe('Testing challenge 4', () => {
   });
 });
 
-xdescribe('Testing challenge 5', () => {
+describe('Testing challenge 5', () => {
   test('It should check if url is https', () => {
 
     expect(isSecure('http://www.insecure.com')).toBe(false);
@@ -278,7 +296,7 @@ xdescribe('Testing challenge 5', () => {
   });
 });
 
-xdescribe('Testing challenge 6', () => {
+describe('Testing challenge 6', () => {
   test('It should return true if there are three in a row', () => {
     expect(detectTicTacToeWin([['X', '', 'O'], ['X', 'O', ''], ['X', 'O', 'X']])).toStrictEqual(true);
     expect(detectTicTacToeWin([['O', '', 'X'], ['X', 'O', 'X'], ['X', '', 'O']])).toStrictEqual(true);
