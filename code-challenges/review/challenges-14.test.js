@@ -183,18 +183,11 @@ const detectTicTacToeWin = (board) => {
     [
       ...board,
       ...columns,
-      [
-        board[0][0], board[1][1],board[2][2]
-      ],
-      [
-        board[2][0],board[1][1],board[0][2]
-      ]
+      [ board[0][0], board[1][1], board[2][2] ],
+      [ board[2][0], board[1][1], board[0][2] ]
     ];
   return allChoices.reduce((acc,winChance) => {
-    if (winChance[0] && winChance[0] === winChance[1] && winChance[0] === winChance[2]){
-      acc = true;
-    }
-    return acc;
+    return winChance[0] && winChance.every(letter => letter === winChance[0]) ? true : acc;
   }, false)
 };
 
