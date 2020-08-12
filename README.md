@@ -8,9 +8,11 @@ A function that will reverse the order of an array without using built in functi
 #### Approach & Efficiency
 I worked out two seperate solutions. One using a for loop and one using recursion.
 
-### [Reverse an Array](./401-javascript/arrayShift/array-shift.js)
+### [Array Shift](./401-javascript/arrayShift/array-shift.js)
 #### Challenge
 A function that will add a value to the middle of a given array.
 
 #### Approach & Efficiency
-I found the middle point of the array, then split the array with slice, pushed in the given value, and concatted the rest of the array.
+I found the middle point of the array, then split the array with slice, pushed in the given value, and concatted the rest of the array.  
+
+test with `npm test arrayShift`
