@@ -8,12 +8,10 @@ const binarySearch = (arr, value) => {
   while(arr[middleIndex] !== value) {
     if (arr[middleIndex] > value) {
       lastIndex = middleIndex - 1;
-      middleIndex = Math.floor((lastIndex - firstIndex)/2) + firstIndex;
-    }
-    else if (arr[middleIndex] < value) {
+    } else {
       firstIndex = middleIndex + 1;
-      middleIndex = Math.floor((lastIndex - firstIndex)/2) + firstIndex;
     }
+    middleIndex = Math.floor((lastIndex - firstIndex)/2) + firstIndex;
     if (firstIndex > lastIndex) {
       return -1;
     }
