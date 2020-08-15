@@ -24,4 +24,10 @@ This function finds the index of a value in a sorted array. It returns that inde
 #### Approach & Efficiency
 We found the middle index of the array, checked if the value matched, was higher, or was lower, than the number at that index. Then we only tested the half that contained the number. We split the array in half until we matched the number or found out that the number was not in the array.
 
-test with `npm test arrayBinarySearch`
+test with `npm test arrayBinarySearch`  
+
+### [Linked List](./401-javascript/Data-Structures/linkedList/linked-list.js)
+#### Challenge
+The goal was to make a Linked List class with the ability to add nodes to the beginning, check if a value exists in the node, and return a string with the values of all the nodes in the list.
+#### Approach & Efficiency
+To go through the list for the includes() and toString() methods I used `while(currentNode)` because at the end of the loop, currentNode would equal `null`.
