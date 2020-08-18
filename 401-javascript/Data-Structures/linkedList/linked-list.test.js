@@ -41,6 +41,45 @@ describe('Linked List tests', () => {
     const linkedList = makeList();
     expect(linkedList.toString()).toBe('{ Show } -> { Me } -> { The } -> { Money } -> NULL');
   })
+  it('Will insert before something in the middle', () => {
+    const linkedList = makeList();
+    linkedList.insertBefore('The', 'All');
+    expect(linkedList.includes('All')).toBe(true);
+    expect(linkedList.head.next.next.value).toBe('All');
+  })
+  it('Will insert before something at the beginning', () => {
+    const linkedList = makeList();
+    linkedList.insertBefore('Show', 'Please');
+    expect(linkedList.includes('Please')).toBe(true);
+    expect(linkedList.head.value).toBe('Please');
+  })
+  it('Will insert after something in the middle', () => {
+    const linkedList = makeList();
+    linkedList.insertAfter('Me', 'All');
+    expect(linkedList.includes('All')).toBe(true);
+    expect(linkedList.head.next.next.value).toBe('All');
+  })
+  it('Will insert after something at the end', () => {
+    const linkedList = makeList();
+    linkedList.insertAfter('Money', '!');
+    expect(linkedList.includes('!')).toBe(true);
+    expect(linkedList.head.next.next.next.next.value).toBe('!');
+  })
+  it('Will append to the end of the list', () => {
+    const linkedList = makeList();
+    linkedList.append('!');
+    expect(linkedList.includes('!')).toBe(true);
+    expect(linkedList.head.next.next.next.next.value).toBe('!');
+  })
+  it('Will apend multiple items to the end of the list', () => {
+    const linkedList = makeList();
+    linkedList.append('!');
+    linkedList.append(':)');
+    expect(linkedList.includes('!')).toBe(true);
+    expect(linkedList.includes(':)')).toBe(true);
+    expect(linkedList.head.next.next.next.next.value).toBe('!');
+    expect(linkedList.head.next.next.next.next.next.value).toBe(':)');
+  })
 });
 
 const makeList = () => {
