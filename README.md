@@ -31,3 +31,9 @@ test with `npm test arrayBinarySearch`
 The goal was to make a Linked List class with the ability to add nodes to the beginning, check if a value exists in the node, and return a string with the values of all the nodes in the list.
 #### Approach & Efficiency
 To go through the list for the includes() and toString() methods I used `while(currentNode)` because at the end of the loop, currentNode would equal `null`.
+
+### [Linked List - Insert](./401-javascript/Data-Structures/linkedList/linked-list.js)
+#### Challenge
+The goal was to expand on our linked list class to all to append to the end of the list, and insert before or after a given value in the list.
+#### Approach & Efficiency
+I searched through the list to see where the value of a node matched the given value and inserted the new value before or after based on what function was called. I searched for the next of null at the end of the list to append an item.
