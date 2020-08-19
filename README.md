@@ -37,3 +37,11 @@ To go through the list for the includes() and toString() methods I used `while(c
 The goal was to expand on our linked list class to all to append to the end of the list, and insert before or after a given value in the list.
 #### Approach & Efficiency
 I searched through the list to see where the value of a node matched the given value and inserted the new value before or after based on what function was called. I searched for the next of null at the end of the list to append an item.
+
+### [Linked List - Kth From End](./401-javascript/Data-Structures/linkedList/linked-list.js)
+
+#### Challenge
+Make a method for the linked list that will find the value of an element in the kth from the end node.
+
+#### Approach and Efficiency
+I had to go through the linked list to find out how long the list is. From there, I went through the list again, up to the node that the correct value was in, and returned that value. 
