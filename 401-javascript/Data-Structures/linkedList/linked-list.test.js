@@ -82,6 +82,30 @@ describe('Linked List tests', () => {
   })
 });
 
+describe('Linked List kth from the end', () => {
+  it('throws an error when k is greater than list length', () => {
+    const linkedList = makeList();
+    expect(() => linkedList.kthFromEnd(5)).toThrowError('Value for k is too high');
+  })
+  it('works when k points to the first node', () => {
+    const linkedList = makeList();
+    expect(linkedList.kthFromEnd(3)).toBe('Show');
+  })
+  it('throws an error when k is negative', () => {
+    const linkedList = makeList();
+    expect(()=> linkedList.kthFromEnd(-3)).toThrowError('Value for k is too low');
+  })
+  it('works if the list is only one node long', () => {
+    const linkedList = new LinkedList();
+    linkedList.insert('only node');
+    expect(linkedList.kthFromEnd(0)).toBe('only node');
+  })
+  it('works on the happy path', ()=> {
+    const linkedList = makeList();
+    expect(linkedList.kthFromEnd(2)).toBe('Me');
+  })
+})
+
 const makeList = () => {
   const linkedList = new LinkedList();
   linkedList.insert('Money')

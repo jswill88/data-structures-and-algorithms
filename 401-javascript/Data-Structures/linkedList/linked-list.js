@@ -68,6 +68,29 @@ class LinkedList {
       currentNode = currentNode.next;
     }
   }
+
+  kthFromEnd(k) {
+    if (k < 0) {
+      throw Error('Value for k is too low')
+    }
+    let count = 0;
+    let current = this.head;
+    while (current) {
+      count++;
+      current = current.next;
+    }
+    if (k > count - 1) {
+      throw Error('Value for k is too high')
+    }
+    current = this.head;
+    let index = (count - k) - 1;
+    for (let i = 0; i < index; i++) {
+      current = current.next;
+    }
+    return current.value;
+  }
+
+
 }
 
 class Node {
