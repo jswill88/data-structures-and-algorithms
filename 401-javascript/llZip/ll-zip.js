@@ -6,6 +6,7 @@ function zipLists(list1, list2) {
   let zippedList = new LinkedList();
   zippedList.insert(list1.head.value);
   zippedList.append(list2.head.value);
+
   let current = list1.head.next;
   let current2 = list2.head.next;
 
@@ -14,7 +15,6 @@ function zipLists(list1, list2) {
       zippedList.append(current.value);
       current = current.next;
     }
-
     if (current2) {
       zippedList.append(current2.value);
       current2 = current2.next;
