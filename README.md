@@ -44,4 +44,12 @@ I searched through the list to see where the value of a node matched the given v
 Make a method for the linked list that will find the value of an element in the kth from the end node.
 
 #### Approach and Efficiency
-I had to go through the linked list to find out how long the list is. From there, I went through the list again, up to the node that the correct value was in, and returned that value. 
+I had to go through the linked list to find out how long the list is. From there, I went through the list again, up to the node that the correct value was in, and returned that value.
+
+### [Linked List - Zip](./401-javascript/llZip/ll-zip.js)
+
+#### Challenge
+Make a function that will take two linked lists, zip them together, and return a variable pointing at the new linked list.
+
+#### Approach and Efficiency
+We made a new linked list, and we started with the heads of both lists. We then added the values of each list as we traversed them, and ended up with all the values from both lists.
