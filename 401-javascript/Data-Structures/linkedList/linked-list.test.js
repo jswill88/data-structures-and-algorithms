@@ -93,17 +93,19 @@ describe('Linked List kth from the end', () => {
   })
   it('throws an error when k is negative', () => {
     const linkedList = makeList();
-    expect(()=> linkedList.kthFromEnd(-3)).toThrowError('Value for k is too low');
+    expect(() => linkedList.kthFromEnd(-3)).toThrowError('Value for k is too low');
   })
   it('works if the list is only one node long', () => {
     const linkedList = new LinkedList();
     linkedList.insert('only node');
     expect(linkedList.kthFromEnd(0)).toBe('only node');
   })
-  it('works on the happy path', ()=> {
+  it('works on the happy path', () => {
     const linkedList = makeList();
     expect(linkedList.kthFromEnd(2)).toBe('Me');
   })
+
+
 })
 
 const makeList = () => {
