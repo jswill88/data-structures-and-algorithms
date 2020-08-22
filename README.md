@@ -53,3 +53,24 @@ Make a function that will take two linked lists, zip them together, and return a
 
 #### Approach and Efficiency
 We made a new linked list, and we started with the heads of both lists. We then added the values of each list as we traversed them, and ended up with all the values from both lists.
+
+### [Stacks and Queues](./401-javascript/Data-Structures)
+
+#### Challenge
+Write a stack and queue class with working methods.
+
+#### Approach and Efficiency
+It was specified to use a Linked List type of class to make the new classes. All the methods were done in a way to keep Big O at O(1).
+
+#### API
+__Stack__  
+- push() - Takes a value as an argument and adds it to the top of the stack
+- pop() - Takes no arguments. Removes the top item from the stack and returns the value
+- peek() - Takes no arguments. Returns the top value
+- isEmpty() - Takes no arguments. Returns true if the stack is empty and false if it is no empty
+
+__Queue__
+- enqueue() - Takes a value as an argument and adds it the the end of the queue.
+- dequeue() - Takes no arguments. Removes the item from the front of the queue and returns the value
+- peek() - Takes no arguments. Returns the value of the item in the front of the queue
+- isEmpty() - Takes no arguments. Returns true if the queue is empty and false if it is no empty

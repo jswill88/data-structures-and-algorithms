@@ -34,7 +34,7 @@ For example, ['apple', 'banana', 'MacGyver'] returns ['Apple', 'Banana', 'MacGyv
 const toTitleCase = (arr) => arr
   .map(title => title[0]
     .toUpperCase() + title
-      .slice(1, title.length))
+    .slice(1, title.length))
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 3
 
