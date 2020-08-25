@@ -76,10 +76,19 @@ __Queue__
 - isEmpty() - Takes no arguments. Returns true if the queue is empty and false if it is no empty
 
 ### [Queue with Stacks](./401-javascript/queueWithStacks/queue-with-stacks.js)
-### Challenge
-Write a stack with only enqueue and dequeue methods that only uses two stacks to store the data.
+#### Challenge
+Write a queue with only enqueue and dequeue methods that only uses two stacks to store the data.
 #### Approach and Efficiency
 I put all the items on one stack, and flipped it to get to the bottom by putting everything on the other stack.   
   
 - enqueue() - Takes a value as an argument, ands it to the end of the queue, and returns an array of all the items in the queue, as per the Code Challenge specifications.
 - dequeue() - Takes no arguments. Removes the node at the front of the queue, and returns its value
+
+### [Animal Shelter](./401-javascript/fifoAnimalShelter/fifo-animal-shelter.js)
+#### Challenge
+Write a queue that will only store cats and dogs, and will return the animal closest to the front of the list that is requested in the dequeue.
+#### Approach and Efficiency  
+I used the two stack method as a storage technique again, so that I could put all the mismatches on the second stack while I searched for the first matching animal type. The animals are stored as objects with a type of either 'dog' or 'cat.
+- enqueue() - Takes an object as an argument with a type of either 'dog' or 'cat' and adds it to the queue
+- dequeue() - Takes a type as an argument, either 'cat' or 'dog' and will return the object with that type cloesest to the front of the queue.
+
