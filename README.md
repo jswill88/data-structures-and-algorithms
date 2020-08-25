@@ -74,3 +74,12 @@ __Queue__
 - dequeue() - Takes no arguments. Removes the item from the front of the queue and returns the value
 - peek() - Takes no arguments. Returns the value of the item in the front of the queue
 - isEmpty() - Takes no arguments. Returns true if the queue is empty and false if it is no empty
+
+### [Queue with Stacks](./401-javascript/queueWithStacks)
+### Challenge
+Write a stack with only enqueue and dequeue methods that only uses two stacks to store the data.
+#### Approach and Efficiency
+I put all the items on one stack, and flipped it to get to the bottom by putting everything on the other stack.   
+  
+- enqueue() - Takes a value as an argument, ands it to the end of the queue, and returns an array of all the items in the queue, as per the Code Challenge specifications.
+- dequeue() - Takes no arguments. Removes the node at the front of the queue, and returns its value
