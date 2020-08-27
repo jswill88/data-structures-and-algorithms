@@ -92,3 +92,10 @@ I used the two stack method as a storage technique again, so that I could put al
 - enqueue() - Takes an object as an argument with a type of either 'dog' or 'cat' and adds it to the queue
 - dequeue() - Takes a type as an argument, either 'cat' or 'dog' and will return the object with that type cloesest to the front of the queue.
 
+### [Multi Bracket Validation](./401-javascript/multiBracketValidation/multi-bracket-validation.js)
+#### Challenge
+Write a function that accepts a string as an argument. The function will check if all the brackets are properly paired up by returning `true` or `false`
+
+#### Approach and Efficiency
+I used the stack class to hold onto the latest opening bracket. When a closing bracket showed up, I compared it to the opening bracket to make sure it was the correct match. If they all matched, the function returns true, otherwise false. This function has a time efficiency of O(n) and a space efficiency of O(1).
+
