@@ -99,3 +99,15 @@ Write a function that accepts a string as an argument. The function will check i
 #### Approach and Efficiency
 I used the stack class to hold onto the latest opening bracket. When a closing bracket showed up, I compared it to the opening bracket to make sure it was the correct match. If they all matched, the function returns true, otherwise false. This function has a time efficiency of O(n) and a space efficiency of O(1).
 
+### [Trees](./401-javascript/Data-Structures/tree/tree.js)
+#### Challenge
+Write a binary tree class with `preOrder()`, `inOrder()`, and `postOrder()` methods. Write a binary search tree class with add() and contains() methods.
+
+#### Approach and Efficiency
+I used recursion for the methods on the binary tree. I used recursion for the `add()` method. I was able to to the `contains()` method with a while loop.
+
+- preOrder() - Takes no arguments. Makes and returns an array of the tree items in the order center, left, right.
+- inOrder() - Takes no arguments. Makes and returns an array of the tree items in the order left, center, right
+- postOrder() - Takes no arguments. Makes and returns an array of the tree items in the order left, right, center
+- add() - Takes one value as an argument. Adds that value at the correct node in a binary search tree
+- contains() - Takes one value as an argument. Returns true if the value is in the tree, and false if not.
