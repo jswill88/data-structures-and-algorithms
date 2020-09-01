@@ -51,6 +51,25 @@ describe('Binary Tree tests', () => {
 
 })
 
+describe('Maximum binary tree tests', () => {
+  it('can find the maximum value stored in the tree', () => {
+    const five = new Node(5);
+    const two = new Node(2);
+    const seven = new Node(7);
+    const twentytwo = new Node(22);
+    const tree = new BinaryTree(five);
+    tree.root.left = two;
+    tree.root.right = seven;
+    tree.root.right.right = twentytwo;
+    const res = tree.findMaximumValue();
+    expect(res).toStrictEqual(22);
+  });
+  it('will not try finding the maximum of an empty tree', () => {
+    const tree = new BinaryTree();
+    expect(() => tree.findMaximumValue()).toThrow(Error);
+  });
+})
+
 
 
 const makeBinaryTree = () => {

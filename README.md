@@ -111,3 +111,9 @@ I used recursion for the methods on the binary tree. I used recursion for the `a
 - postOrder() - Takes no arguments. Makes and returns an array of the tree items in the order left, right, center
 - add() - Takes one value as an argument. Adds that value at the correct node in a binary search tree
 - contains() - Takes one value as an argument. Returns true if the value is in the tree, and false if not.
+
+### [Trees](./401-javascript/Data-Structures/tree/tree.js)
+#### Challenge
+Write a tree method called `findMaximumValue()` that will search through a binary tree full of numbers and find the largest value. 
+#### Approach and Efficiency
+We used recursion to traverse the tree, and compared each value. This is inefficient, but since the tree is not sorted, I do not believe there is a better way.
