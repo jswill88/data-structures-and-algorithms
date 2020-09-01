@@ -117,3 +117,10 @@ I used recursion for the methods on the binary tree. I used recursion for the `a
 Write a tree method called `findMaximumValue()` that will search through a binary tree full of numbers and find the largest value. 
 #### Approach and Efficiency
 We used recursion to traverse the tree, and compared each value. This is inefficient, but since the tree is not sorted, I do not believe there is a better way.
+
+
+### [FizzBuzz Tree](./401-javascript/Data-Structures/fizzBuzzTree/fizzbuzz-tree.js)
+#### Challenge
+Write a function that will traverse a tree and replace the values divisible by 3 with 'Fizz', the values divisible by 5 with 'Buzz', those divisible by both with 'FizzBuzz', and everything else with a string.
+#### Approach and Efficiency
+I used recursion to make sure I went to every node of the tree, then I checked the value of each node and compared it against 3 and 5 and reassigned 'Fizz' and 'Buzz' as needed.
