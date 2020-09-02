@@ -124,3 +124,12 @@ We used recursion to traverse the tree, and compared each value. This is ineffic
 Write a function that will traverse a tree and replace the values divisible by 3 with 'Fizz', the values divisible by 5 with 'Buzz', those divisible by both with 'FizzBuzz', and everything else with a string.
 #### Approach and Efficiency
 I used recursion to make sure I went to every node of the tree, then I checked the value of each node and compared it against 3 and 5 and reassigned 'Fizz' and 'Buzz' as needed.
+
+### 9/2/2020
+### [Breadth First](./401-javascript/Data-Structures/tree/tree.js)
+#### Challenge
+Write a method in the tree class that will traverse the tree breadth first and return an array of all the values in the tree.  
+#### Approach and Efficiency
+I used a queue to store the nodes as I went along, and when the queue was empty I returned the array. My partner also found a clever way to just use one array and return it, which is what the whiteboard is based on.
+#### Testing
+npm test breadth-first.test.js
