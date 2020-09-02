@@ -55,6 +55,25 @@ class BinaryTree {
     _maxValue(this.root);
     return maxValue;
   }
+  breadthFirst() {
+    const queue = [];
+    const returnArr = [];
+    if (!this.root) {
+      throw Error('cannot get values from an empty tree')
+    }
+    queue.push(this.root)
+    while(queue.length) {
+      let current = queue.pop();
+      returnArr.push(current.value);
+      if (current.left) {
+        queue.unshift(current.left)
+      }
+      if (current.right) {
+        queue.unshift(current.right);
+      }
+    }
+    return returnArr;
+  }
 }
 
 class BinarySearchTree extends BinaryTree {
