@@ -133,3 +133,12 @@ Write a method in the tree class that will traverse the tree breadth first and r
 I used a queue to store the nodes as I went along, and when the queue was empty I returned the array. My partner also found a clever way to just use one array and return it, which is what the whiteboard is based on.
 #### Testing
 npm test breadth-first.test.js
+
+### 9/14/2020
+### [Sort Blog](./BLOG.md)
+#### Challenge
+Write a blog and function that will sort an array.
+#### Approach and Efficiency
+I went through the pseudo code one line at a time and kept track of all the variables to see how it works. I then translated the pseudocode to javascript.
+#### Testing
+npm test sort.test.js
