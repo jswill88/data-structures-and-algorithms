@@ -142,3 +142,12 @@ Write a blog and function that will sort an array.
 I went through the pseudo code one line at a time and kept track of all the variables to see how it works. I then translated the pseudocode to javascript.
 #### Testing
 npm test sort.test.js
+
+### 9/15/2020
+### [Sort Blog](401-javascript/mergeSort/merge-sort-blog.md)
+#### Challenge
+Write a blog and function that will sort an array using merge sort technique.
+#### Approach and Efficiency
+I went through the pseudo code one line at a time and kept track of all the variables to see how it works. I then translated the pseudocode to javascript. This is a super clever solution, but with all the recursion and creating new arrays, this does not seem very efficient.
+#### Testing
+npm test merge-sort.test.js
