@@ -157,9 +157,10 @@ npm test merge-sort.test.js
 #### Challenge
 Write a blog and function that will sort an array using quicksort.
 #### Approach and Efficiency
+I went through the code slowly and watched every step to understand the algorithm. I need to do more research to understand the efficiency. 
 
 #### Testing
-npm test sort.test.js
+npm test quick-sort.test.js
 
 
 
