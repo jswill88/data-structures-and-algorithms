@@ -30,5 +30,13 @@ describe('hashtable tests', () => {
     const hashZZ = table.hash('ZZZZZZZYYYYYYYXXXX');
     expect(hashZZ >= 0 && hashZZ < 1024).toBeTruthy();
   })
+  it('can use the contains method', () => {
+    const table = new Hashtable();
+    table.add('act', 'now');
+    table.add('cat','hat');
+    expect(table.contains('act')).toBeTruthy();
+    expect(table.contains('cat')).toBeTruthy();
+    expect(table.contains('tan')).toBeFalsy();
+  })
 
 })
