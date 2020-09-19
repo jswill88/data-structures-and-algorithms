@@ -162,4 +162,21 @@ Write a blog and function that will sort an array using quicksort.
 npm test sort.test.js
 
 
+### 9/18/2020
+### [Hashtables](./401-javascript/Data-Structures/hashtable/hashtable.js)
+```
+npm test hashtable
+```
+#### Challenge
+The challenge was to implement a hash table class that can add and show items from a Hash Table. It makes a hash for each key, and stores the value.
+
+#### Approach & Efficiency
+I used an array to deal with collisions. I used the simple hash algorithm of multiplying by 599 and moduloing by the length of the hash table.  
+
+#### API
+ - `add(key, value)` - Takes in a key value pair and adds it to the hash table.
+ - `get(key)` - Returns a value from the hashtable based on the key passed in. If there is nothing at the key, it returns `null`.
+ - `contains(key)` - Takes in a key, and returns true is that index has a value and false if it does not.
+ - `hash(key)` - Takes a key as an argument and returns a hashed version of the key to place it at that index in the hash table.
+ 
 
