@@ -179,4 +179,12 @@ I used an array to deal with collisions. I used the simple hash algorithm of mul
  - `contains(key)` - Takes in a key, and returns true is that index has a value and false if it does not.
  - `hash(key)` - Takes a key as an argument and returns a hashed version of the key to place it at that index in the hash table.
  
-
+### 9/21/2020
+### [Repeated Word](./401-javascript/repeatedWord/repeated-word.js)
+#### Challenge
+Write a function that will return the first repeated word of a given string. This needs to account for upper and lowercase letters and to account for non word characters.  
+#### Approach and Efficiency
+We accomplished this by putting each word into a hashtable, and then checking if each following word had already been entered into that hash table. Once there was a match, we returned that value.
+#### Testing
+npm test repeated-word  
+The test passes with all the example input.
