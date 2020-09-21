@@ -4,21 +4,25 @@ class Hashtable {
   constructor(size = 1024) {
     this.hashtable = new Array(size);
   }
+
   add(key, value) {
     !this.contains(key)
-      ? this.hashtable[this.hash(key)] = [{ [key]: value}]
+      ? this.hashtable[this.hash(key)] = [{ [key]: value }]
       : this.hashtable[this.hash(key)]
-        .push({ [key]: value})
-
+        .push({ [key]: value })
   }
+
   get(key) {
-    return this.hashtable[this.hash(key)]
+    return this.contains(key)
       ? this.hashtable[this.hash(key)]
-        .filter(bucket => Object.keys(bucket)[0] === key)[0][key]
+        .filter(bucket => Object.keys(bucket)[0] === key)[0]
+        ? this.hashtable[this.hash(key)]
+          .filter(bucket => Object.keys(bucket)[0] === key)[0][key]
+        : null
       : null;
   }
 
-  contains (key) { return !!this.hashtable[this.hash(key)] }
+  contains(key) { return !!this.hashtable[this.hash(key)] }
 
   hash(key) {
     let hash = 0;
