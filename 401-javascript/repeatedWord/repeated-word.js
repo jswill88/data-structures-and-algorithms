@@ -8,8 +8,7 @@ module.exports = (string) => {
   let wordArray = string.toLowerCase().split(/[^\w+]/gi);
   const wordHash = new Hashtable(wordArray.length);
 
-  for (let i = 0; i < wordArray.length; i++) {
-    let word = wordArray[i];
+  for (let word of wordArray) {
     if (wordHash.get(word)) { return word; }
     else { wordHash.add(word, word); }
   }
