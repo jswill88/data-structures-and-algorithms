@@ -188,3 +188,14 @@ We accomplished this by putting each word into a hashtable, and then checking if
 #### Testing
 npm test repeated-word  
 The test passes with all the example input.
+
+### 9/22/2020
+### [Tree Intersection](./401-javascript/treeIntersection/tree-intersection.js)
+#### Challenge
+Find the shared values between two trees, and return them as an array.
+  
+#### Approach and Efficiency
+We put all the values from the first tree into a hash table. Then we checked each value in the second tree to see if it was already in the hash table. If it was, we added it to an array. Each value will only appear once in the array, even if it appears more than one time in the tree.
+
+#### Testing
+npm test tree-intersection  

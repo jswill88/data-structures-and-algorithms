@@ -9,6 +9,7 @@ module.exports = (string) => {
   const wordHash = new Hashtable(wordArray.length);
 
   for (let word of wordArray) {
+
     if (wordHash.contains(word)) {
       return word; }
     else {
