@@ -6,23 +6,37 @@ class Hashtable {
   }
 
   add(key, value) {
-    !this.contains(key)
-      ? this.hashtable[this.hash(key)] = [{ [key]: value }]
-      : this.hashtable[this.hash(key)]
-        .push({ [key]: value })
+    if (!this.contains(key)) {
+      this.hashtable[this.hash(key)]
+        ? this.hashtable[this.hash(key)]
+          .push({ [key]: value })
+        : this.hashtable[this.hash(key)] = [{ [key]: value }]
+
+    } else {
+      this.hashtable[this.hash(key)] = this.hashtable[this.hash(key)].map(object => {
+        if (Object.keys(object)[0] === key) {
+          return { [key]: value };
+        }
+      })
+    }
   }
 
   get(key) {
-    return this.contains(key)
-      ? this.hashtable[this.hash(key)]
-        .filter(bucket => Object.keys(bucket)[0] === key)[0]
-        ? this.hashtable[this.hash(key)]
-          .filter(bucket => Object.keys(bucket)[0] === key)[0][key]
-        : null
-      : null;
+    if (this.contains(key)) {
+
+      let value = this.hashtable[this.hash(key)]
+        .filter(bucket => Object.keys(bucket)[0] === key)[0][key]
+      return value
+    }
+    return null;
   }
 
-  contains(key) { return !!this.hashtable[this.hash(key)] }
+  contains(key) {
+    return this.hashtable[this.hash(key)]
+      && !!this.hashtable[this.hash(key)]
+        .find(bucket => Object.keys(bucket)[0] === key)
+
+  }
 
   hash(key) {
     let hash = 0;
