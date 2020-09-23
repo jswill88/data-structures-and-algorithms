@@ -199,3 +199,14 @@ We put all the values from the first tree into a hash table. Then we checked eac
 
 #### Testing
 npm test tree-intersection  
+
+### 9/23/2020
+### [Left Join](./401-javascript/leftJoin/left-join.js)
+#### Challenge
+Perform a left join on two given hash tables.
+  
+#### Approach and Efficiency
+We looped through all the values in the first hash table, and added them to a subarray, and we checked if the second hash table also had a value for the key, and if it did we added it to that subarray. We push all these arrays into a larger array.
+
+#### Testing
+npm test left-join 
