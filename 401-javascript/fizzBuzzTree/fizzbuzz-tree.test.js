@@ -1,7 +1,7 @@
 'use strict';
 
 const fizzBuzzTree = require('./fizzbuzz-tree')
-const { BinaryTree, Node } = require('../tree/tree');
+const { BinaryTree, Node } = require('../Data-Structures/tree/tree');
 
 describe('FizzBuzz Tree tests', () => {
   it('can change a tree of one', () => {
