@@ -7,8 +7,7 @@ module.exports = (leftHash, rightHash) => {
   let outputArray = [];
 
   for (let key in leftHash) {
-    let keyArray = [key, leftHash[key], (rightHash[key] || null)];
-    outputArray.push(keyArray);
+    outputArray.push([key, leftHash[key], (rightHash[key] || null)]);
   }
 
   return outputArray;
