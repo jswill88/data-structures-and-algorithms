@@ -209,4 +209,22 @@ Perform a left join on two given hash tables.
 We looped through all the values in the first hash table, and added them to a subarray, and we checked if the second hash table also had a value for the key, and if it did we added it to that subarray. We push all these arrays into a larger array.
 
 #### Testing
-npm test left-join 
+npm test left-join
+
+### 9/25/2020
+### [Graphs](./401-javascript/Data-Structures/graph/graph.js)
+```
+npm test graph
+```
+## Challenge
+Write a graph class with a variety of methods.
+
+## Approach & Efficiency
+I used objects to store the nodes, edges, and the neighbors for each node so that I could easily access all of them. I have a graph class and a Node class, and the edges are stored in the neighbors object in each node, and in the edges object in the constructor. 
+
+## API
+`addNode(value)` - Takes in a value and creates a node in the graph with that value. It returns the node.  
+`addEdge(node1, node2, weight = null)` - Takes in two nodes and a number as arguments. Creates an edge between the two nodes with the given weight, and adds the other node to each nodes neighbor list.  
+`getNodes()` - Returns the object will all the nodes in the graph. If there are no nodes in the graph, this returns `null`.  
+`getNeighbors(node)` - Takes a node as an argument, and returns the object with all the neighbors of the node. 
+`size()` - Returns a number representing how many nodes are in the graph.

@@ -4,13 +4,13 @@ class Graph {
 
   constructor() {
     this.adjacenyList = {};
-    this.edges = {};
+    this.neighbors = {};
   }
 
   addNode(value) {
     let newNode = new Node(value);
     this.adjacenyList[value] = newNode;
-    this.edges[value] = {}
+    this.neighbors[value] = {}
     return newNode;
   }
 
@@ -18,8 +18,8 @@ class Graph {
     if(!node1 || !node2) {
       throw Error('One or more nodes is empty');
     }
-    this.edges[node1.value][node2.value] = { node: node2, weight };
-    this.edges[node2.value][node1.value] = { node: node2, weight };
+    this.neighbors[node1.value][node2.value] = { node: node2, weight };
+    this.neighbors[node2.value][node1.value] = { node: node2, weight };
   }
 
   getNodes() {
@@ -29,7 +29,7 @@ class Graph {
   }
 
   getNeighbors(node) {
-    return this.edges[node.value]
+    return this.neighbors[node.value]
   }
   size() {
     return this.adjacenyList
