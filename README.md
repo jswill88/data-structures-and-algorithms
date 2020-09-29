@@ -228,3 +228,17 @@ I used objects to store the nodes, edges, and the neighbors for each node so tha
 `getNodes()` - Returns the object will all the nodes in the graph. If there are no nodes in the graph, this returns `null`.  
 `getNeighbors(node)` - Takes a node as an argument, and returns the object with all the neighbors of the node. 
 `size()` - Returns a number representing how many nodes are in the graph.
+
+### 9/28/2020
+### [Breadth First](./401-javascript/breadthFirst/breadth-first.js)
+#### Challenge
+Perform a breadth first traversal of a graph. 
+  
+#### Approach and Efficiency
+We added each node to a an to a queue. As we dequeued nodes, we added them to the output array, and then added all the neighbors to the queue. We checked to make sure that there were no repeats.
+
+#### Testing
+I tested by making sure that the arrays were the length of the graph and that the first and last nodes in the array were correct.
+``` 
+npm test breadth-first
+```
