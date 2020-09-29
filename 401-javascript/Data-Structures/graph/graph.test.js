@@ -32,12 +32,12 @@ describe('graph test suite', () => {
     const oneNeighbors = one.getNeighbors();
     expect(oneNeighbors.size).toBe(2);
   });
-  it.skip('can return the weight between neighbors', () => {
+  it('can return the weight between neighbors', () => {
     const graph = new Graph();
     let one = graph.addNode('one');
     let two = graph.addNode('two');
     graph.addEdge(one, two, 5);
-    expect(graph.getEdges()).toBe(5);
+    expect(graph.getEdges()[0].weight).toBe(5);
   });
   it('can return the correct size of the graph', () => {
     const graph = new Graph();
