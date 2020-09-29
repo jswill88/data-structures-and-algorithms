@@ -4,7 +4,7 @@ class Graph {
 
   constructor() {
     this.adjacenyList = new Set();
-    this.edges = new Set();
+    this.edges = [];
   }
 
   addNode(value) {
@@ -20,10 +20,11 @@ class Graph {
     }
     node1.addEdge(node2, weight);
     node2.addEdge(node1, weight);
-    const edge = new Edge(node1, node2, weight = null);
-    this.edges.add(edge);
-    // this.neighbors[node1.value][node2.value] = { node: node2, weight };
-    // this.neighbors[node2.value][node1.value] = { node: node1, weight };
+    const edge = new Edge(node1, node2, weight);
+    const reverseEdge = new Edge(node2, node1, weight);
+    this.edges.push(edge);
+    this.edges.push(reverseEdge);
+
   }
 
   getNodes() {
@@ -32,7 +33,7 @@ class Graph {
       : null;
   }
   getEdges() {
-    return this.edges.size
+    return this.edges.length
       ? this.edges
       : null;
   }

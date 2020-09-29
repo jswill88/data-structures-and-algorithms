@@ -242,3 +242,17 @@ I tested by making sure that the arrays were the length of the graph and that th
 ``` 
 npm test breadth-first
 ```
+
+### 9/29/2020
+### [Get Edge](./401-javascript/getEdge/get-edge.js)
+#### Challenge
+Check if edges connect specific nodes in a graph, and return true and the sum of the weights if they do.
+  
+#### Approach and Efficiency
+We got the list of edges from a graph and filtered it down to edges that contained both nodes we were looking for. If they were there, we added it to the total and checked the next pair of nodes. If any were not there, we returned false.
+
+#### Testing
+We tested the happy path, checked it it was false for nodes with no edges, and checked it it returned false for nodes that were not in the graph.
+``` 
+npm test get-edge
+```
