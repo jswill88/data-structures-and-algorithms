@@ -256,3 +256,17 @@ We tested the happy path, checked it it was false for nodes with no edges, and c
 ``` 
 npm test get-edge
 ```
+
+### 9/29/2020
+### [Depth First](./401-javascript/depthFirst/depth-first.js)
+#### Challenge
+Perform a depth first traversal of a graph starting at a given vertex.
+  
+#### Approach and Efficiency
+I added the root vertex to an output array and to a stack. I then checked if that vertex had any neighbors. If it did, I added those neighbors to the stack, and did the same thing with whatever is at the top of the stack. As soon as a vertex did not have any neighbors that weren't visited, I removed it from the stack. After the stack is empty, I returned the output array.
+
+#### Testing
+I tested the traversal from different roots and with a graph the size of one.
+``` 
+npm test depth-first
+```
