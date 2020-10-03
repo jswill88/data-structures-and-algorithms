@@ -6,7 +6,9 @@ class LinkedList {
   }
 
   insert(value) {
-    this.head = new Node(value, this.head);
+    let newNode = new Node(value, this.head);
+    this.head = newNode;
+    return newNode;
   }
 
   includes(value) {
