@@ -1,7 +1,6 @@
 
 module.exports = (A, B) => {
   let helper = [...A];
-  console.log(helper)
   let aIndex = 0;
   let helperIndex = 0;
   let bIndex = 0;
