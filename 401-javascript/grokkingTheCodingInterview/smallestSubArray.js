@@ -11,9 +11,8 @@ const smallest_subarray_with_given_sum = function (arr, s) {
     currentArrayLength++;
 
     while (currentSum >= s) {
-      if (currentArrayLength < smallestSubArrayLength) {
-        smallestSubArrayLength = currentArrayLength;
-      }
+
+      smallestSubArrayLength = Math.min(smallestSubArrayLength, currentArrayLength)
       currentSum -= arr[left];
       left++;
       currentArrayLength--;
