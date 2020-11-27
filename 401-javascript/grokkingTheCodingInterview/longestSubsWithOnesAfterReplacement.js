@@ -19,4 +19,5 @@ const length_of_longest_substring = function (arr, k) {
 console.log(length_of_longest_substring([0, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1], 2), 'should be 6');
 
 
-console.log(length_of_longest_substring([0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1], 3), 'should be 9')
+console.log(length_of_longest_substring([0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1], 3), 'should be 9');
+
