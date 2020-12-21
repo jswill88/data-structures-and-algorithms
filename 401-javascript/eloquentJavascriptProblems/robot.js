@@ -31,6 +31,7 @@ function buildGraph (edges) {
   return graph
 }
 const roadGraph = buildGraph(roads);
+console.log('graph', roadGraph)
 
 class VillageState {
   constructor(place, parcels) {
@@ -61,11 +62,15 @@ class VillageState {
     return new VillageState('Post Office', parcels)
   }
 }
-// let first = new VillageState('Post Office',[{place: 'Post Office', address: 'Alice\'s House'}]);
+// let first = new VillageState('Cabin',[{place: 'Post Office', address: 'Alice\'s House'}]);
+// console.log(first)
 
 // let next = first.move('Alice\'s House');
-// console.log(next.parcels);
-// console.log(first.place);
+// let next = first.move('Alice\'s House')
+// console.log('next after move', next);
+// let nextnext = next.move('Alice\'s House');
+// console.log('nextnext parcels', nextnext)
+// console.log(next.place);
 
 function runRobot(state, robot, memory) {
   for(let turn = 0;; turn++) {
@@ -120,15 +125,18 @@ function goalOrientedRobot({place, parcels}, route) {
     let parcel = parcels[0];
     if(parcel.place !== place) {
       route = findRoute(roadGraph, place, parcel.place);
+      // console.log(route);
     } else {
       route = findRoute(roadGraph, place, parcel.address);
     }
   }
+  console.log(route)
   return {direction: route[0], memory: route.slice(1)};
 }
-runRobot(VillageState.random(), randomRobot);
-runRobot(VillageState.random(), routeRobot);
+// runRobot(VillageState.random(), randomRobot);
+// runRobot(VillageState.random(), routeRobot);
 runRobot(VillageState.random(), goalOrientedRobot);
+// console.log(VillageState.random())
 
 function compareRobots (robot1, robot2) {
   let robot1Sum = 0;
@@ -142,5 +150,70 @@ function compareRobots (robot1, robot2) {
   }
   return {robot1: robot1Sum / 100, robot2: robot2Sum / 100}
 }
-console.log(compareRobots(goalOrientedRobot, routeRobot));
+
+function myRoute(graph, from, to) {
+  let work = [{at: from, route: []}];
+  for(let i = 0; i < work.length; i++){
+    let {at, route} = work[i];
+    for (let place of graph[at]) {
+      if (place === to) return route.concat(place);
+      if (!work.some(w => w.at === place)) {
+        work.push({at: place, route: route.concat(place)})
+      }
+    }
+  }
+}
+console.log(myRoute(roadGraph, 'Ernie\'s House', 'Cabin'))
+
+
+function betterRobot({place, parcels}, route) {
+  if(!route || route.length === 0) {
+    let shortest = Infinity;
+    let bestChoice;
+    parcels.forEach(parcel => {
+      let currentRoute = myRoute(roadGraph, place, parcel.place);
+      if(currentRoute.length < shortest) {
+        bestChoice = parcel;
+        shortest = currentRoute.length;
+      }
+    })
+    let parcel = bestChoice;
+    console.log('parcel', parcel)
+    if(parcel.place !== place) {
+      route = myRoute(roadGraph, place, parcel.place);
+    } else {
+      route = myRoute(roadGraph, place, parcel.address);
+    }
+  }
+  return {direction: route[0], memory: route.slice(1)};
+}
+function lazyRobot({place, parcels}, route = []) {
+  if (route.length === 0) {
+    // Describe a route for every parcel
+    let routes = parcels.map(parcel => {
+      if (parcel.place !== place) {
+        return {route: findRoute(roadGraph, place, parcel.place),
+          pickUp: true};
+      } else {
+        return {route: findRoute(roadGraph, place, parcel.address),
+          pickUp: false};
+      }
+    });
+
+    // This determines the precedence a route gets when choosing.
+    // Route length counts negatively, routes that pick up a package
+    // get a small bonus.
+    route = routes.reduce((a, b) => score(a) > score(b) ? a : b).route;
+  }
+  function score({route, pickUp}) {
+    return (pickUp ? 0.5 : 0) - route.length;
+  }
+
+  return {direction: route[0], memory: route.slice(1)};
+}
+runRobot(VillageState.random(), betterRobot)
+console.log(compareRobots(lazyRobot, betterRobot));
+
+// first part of robot should find the best route
+// robot returns a direction and a memory of where to go next
 
