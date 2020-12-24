@@ -1,3 +1,13 @@
+class Interval {
+  constructor(start, end) {
+    this.start = start;
+    this.end = end;
+  }
+  print_interval() {
+    process.stdout.write(`[${this.start}, ${this.end}]`);
+  }
+}
+
 module.exports = function (intervals, new_interval) {
   let merged = [];
   for (let i = 0; i < intervals.length; i++) {
