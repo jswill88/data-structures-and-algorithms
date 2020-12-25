@@ -32,4 +32,4 @@ console.log('with 1 hopefully', newGroup)
 console.log('group 2', group2);
 console.log('deleted should be 2', deleted)
 console.log('empty group', emptyGroup)
-console.log('new empty', PGroup.empty())
+console.log('new empty', PGroup.empty());
