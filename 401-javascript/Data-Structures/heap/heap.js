@@ -5,9 +5,6 @@ class Heap {
     this.heap = [null, rootValue];
     this.size = rootValue ? 1 : 0;
   }
-  maxHeapify() {
-
-  }
   _percolateUp(idx) {
     if (idx <= 1) return;
     const parent = Math.floor(idx/2);
@@ -44,7 +41,7 @@ class Heap {
   }
   removeMax() {
     const max = this.getMax();
-    [this.heap[1], this.heap[this.size]]= [this.heap[this.size], this.heap[1]];
+    this.heap[1] = this.heap.pop();
     this.size--;
     this._heapify(1);
     return max;
@@ -58,40 +55,13 @@ class Heap {
   }
   static sort(arr) {
     const arrHeap = this.fromArray(arr);
-    while(arrHeap.size > 0) {
-      arrHeap.removeMax();
+    for (let i = 0; i < arr.length; i++) {
+      arr[arr.length - 1 - i ] = arrHeap.removeMax()
     }
-    return arrHeap.heap.slice(1);
+    return arr;
   }
 }
 
-let heap = new Heap(7);
 
-// heap.insert(5)
-// heap.insert(8)
-// heap.insert(3)
-// heap.insert(6)
-// console.log(heap);
-// heap.removeMax()
-// console.log(heap);
-// heap.insert(2)
-// heap.insert(4)
-// heap.insert(9)
-// console.log(heap)
-// heap.removeMax()
-// console.log(heap);
-// heap.removeMax()
-// console.log(heap);
+module.exports = Heap;
 
-console.log(Heap.sort([4,5,7,3,4,9,8,1]));
-// console.log(arrayHeap)
-// arrayHeap.removeMax();
-// console.log(arrayHeap)
-// arrayHeap.removeMax();
-// arrayHeap.removeMax();
-// console.log(arrayHeap);
-// arrayHeap.removeMax();
-// arrayHeap.insert(6);
-// console.log(arrayHeap);
-// arrayHeap.insert(2)
-// console.log(arrayHeap)
