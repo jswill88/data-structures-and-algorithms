@@ -29,6 +29,9 @@ class Trie {
     }
     return current.end;
   }
+  allWords() {
+    // return all words in trie
+  }
 }
 class Node {
   constructor() {

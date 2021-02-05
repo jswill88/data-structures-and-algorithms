@@ -1,3 +1,5 @@
+
+
 function parseExpression(program) {
   program = skipSpace(program);
   let match, expr;
@@ -127,6 +129,14 @@ topScope.print = value => {
   return value;
 };
 
+topScope.array = (...values) => values;
+
+topScope.length = array => array.length;
+
+topScope.element = (array, n) => array[n];
+
+
+
 function run(program) {
   return evaluate(parse(program), Object.create(topScope));
 }
@@ -165,15 +175,29 @@ specialForms.fun = (args, scope) => {
 }
 
 run(`
-do(define(plusOne, fun(a, +(a,1))),
-  print(plusOne(10)))
+do(define(sum, fun(array, 
+  do(define(i,0),
+    define(sum,0),
+    while(<(i, length(array)),
+      do(
+        define(sum, +(sum, element(array, i))),
+        define(i, +(i, 1)),
+        print(sum))),
+      sum))),
+    print(sum(array(1,2,3,4))))
 `);
 
-run(`
-do(define(pow, fun(base, exp,
-  if(==(exp,0),
-  1,
-  *(base, pow(base, -(exp,1)))))),
-  print(pow(2,10)))
-`);
+
+// run(`
+// do(define(plusOne, fun(a, +(a,1))),
+//   print(plusOne(10)))
+// `);
+
+// run(`
+// do(define(pow, fun(base, exp,
+//   if(==(exp,0),
+//   1,
+//   *(base, pow(base, -(exp,1)))))),
+//   print(pow(2,10)))
+// `);
 
