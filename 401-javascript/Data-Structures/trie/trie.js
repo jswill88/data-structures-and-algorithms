@@ -20,7 +20,6 @@ class Trie {
     let restOfWord = word;
     while(restOfWord.length) {
       if(restOfWord[0] in current.keys) {
-        console.log()
         current = current.keys[restOfWord[0]];
         restOfWord = restOfWord.substr(1)
       } else {
@@ -30,7 +29,40 @@ class Trie {
     return current.end;
   }
   allWords() {
-    // return all words in trie
+    const words = [];
+    const findWords = (node, word = '') => {
+      if(node.end) words.push(word);
+      for(let char in node.keys) {
+        findWords(node.keys[char], word + char)
+      }
+    }
+    findWords(this.root);
+    return words;
+  }
+
+  delete(word) {
+    console.log(word)
+  }
+
+  wordsWithPrefix(prefix) {
+    const words = [];
+    let current = this.root;
+    for(let char of prefix) {
+      if(char in current.keys) {
+        current = current.keys[char];
+      } else {
+        return words;
+      }
+    }
+    const findWords = (node, word = '') => {
+      console.log(node)
+      if(node.end) words.push(word);
+      for(let char in node.keys) {
+        findWords(node.keys[char], word + char)
+      }
+    }
+    findWords(current, prefix)
+    return words;
   }
 }
 class Node {
@@ -48,18 +80,10 @@ class Node {
 
 const trie = new Trie();
 trie.add('bat');
-trie.add('bra');
+trie.add('brat');
+trie.add('doll');
 trie.add('brave');
 trie.add('black');
-trie.add('doll');
-console.log(trie.root
-  .keys['d']
-  .keys['o']
-  .keys['l']
-  // .keys['v']
-  // .keys['e']
-);
-console.log('doll', trie.isWord('doll'));
-console.log('dolll', trie.isWord('dolll'));
-console.log('dol', trie.isWord('dol'));
+
+console.table(trie.wordsWithPrefix('a'));
 
