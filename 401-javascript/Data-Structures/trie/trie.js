@@ -2,6 +2,7 @@ class Trie {
   constructor() {
     this.root = new Node();
   }
+
   add(word, node = this.root) {
     if(!word.length) {
       node.setEnd();
@@ -15,6 +16,7 @@ class Trie {
       this.add(word.slice(1), newNode);
     }
   }
+
   isWord(word) {
     let current = this.root;
     let restOfWord = word;
@@ -28,15 +30,17 @@ class Trie {
     }
     return current.end;
   }
+
   allWords() {
     const words = [];
-    const findWords = (node, word = '') => {
-      if(node.end) words.push(word);
+
+    (function findWords (node, word = '') {
+      if(node.isEnd()) words.push(word);
       for(let char in node.keys) {
         findWords(node.keys[char], word + char)
       }
-    }
-    findWords(this.root);
+    })(this.root)
+
     return words;
   }
 
@@ -47,6 +51,7 @@ class Trie {
   wordsWithPrefix(prefix) {
     const words = [];
     let current = this.root;
+
     for(let char of prefix) {
       if(char in current.keys) {
         current = current.keys[char];
@@ -54,17 +59,18 @@ class Trie {
         return words;
       }
     }
-    const findWords = (node, word = '') => {
-      console.log(node)
-      if(node.end) words.push(word);
+
+    (function findWords(node, word = '') {
+      if(node.isEnd()) words.push(word);
       for(let char in node.keys) {
         findWords(node.keys[char], word + char)
       }
-    }
-    findWords(current, prefix)
+    })(current, prefix)
+
     return words;
   }
 }
+
 class Node {
   constructor() {
     this.end = false;
@@ -79,11 +85,14 @@ class Node {
 }
 
 const trie = new Trie();
+
 trie.add('bat');
+trie.add('bra')
 trie.add('brat');
 trie.add('doll');
 trie.add('brave');
 trie.add('black');
 
-console.table(trie.wordsWithPrefix('a'));
+console.table(trie.allWords());
+console.table(trie.wordsWithPrefix('bra'));
 
