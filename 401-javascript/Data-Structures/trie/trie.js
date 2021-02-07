@@ -45,7 +45,20 @@ class Trie {
   }
 
   delete(word) {
-    console.log(word)
+    const deleteChar = (node, word) => {
+      if(!word.length) {
+        node.end = false;
+        return;
+      }
+      let char = word[0]
+      if(char in node.keys) {
+        deleteChar(node.keys[char], word.slice(1));
+        if(!Object.keys(node.keys[char].keys).length) {
+          delete node.keys[char];
+        }
+      }
+    }
+    deleteChar(this.root, word);
   }
 
   wordsWithPrefix(prefix) {
@@ -93,6 +106,12 @@ trie.add('doll');
 trie.add('brave');
 trie.add('black');
 
+
 console.table(trie.allWords());
 console.table(trie.wordsWithPrefix('bra'));
+
+trie.delete('black');
+
+console.table(trie.allWords());
+console.log(trie.root.keys['b'])
 
