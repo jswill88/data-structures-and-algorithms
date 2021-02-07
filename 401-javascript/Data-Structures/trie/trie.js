@@ -1,6 +1,10 @@
-class Trie {
+module.exports = class Trie {
   constructor() {
     this.root = new Node();
+  }
+
+  _normalizeWord (word) {
+    return word.toLowerCase().trim();
   }
 
   add(word, node = this.root) {
@@ -8,6 +12,7 @@ class Trie {
       node.setEnd();
       return;
     }
+    word = this._normalizeWord(word);
     const newNode = new Node()
     if(word[0] in node.keys) {
       this.add(word.slice(1), node.keys[word[0]])
@@ -18,6 +23,7 @@ class Trie {
   }
 
   isWord(word) {
+    word = this._normalizeWord(word);
     let current = this.root;
     let restOfWord = word;
     while(restOfWord.length) {
@@ -45,6 +51,7 @@ class Trie {
   }
 
   delete(word) {
+    word = this._normalizeWord(word);
     const deleteChar = (node, word) => {
       if(!word.length) {
         node.end = false;
@@ -62,6 +69,7 @@ class Trie {
   }
 
   wordsWithPrefix(prefix) {
+    prefix = this._normalizeWord(prefix);
     const words = [];
     let current = this.root;
 
@@ -96,22 +104,4 @@ class Node {
     return this.end;
   }
 }
-
-const trie = new Trie();
-
-trie.add('bat');
-trie.add('bra')
-trie.add('brat');
-trie.add('doll');
-trie.add('brave');
-trie.add('black');
-
-
-console.table(trie.allWords());
-console.table(trie.wordsWithPrefix('bra'));
-
-trie.delete('black');
-
-console.table(trie.allWords());
-console.log(trie.root.keys['b'])
 
