@@ -19,6 +19,7 @@ function parseExpression(program) {
 }
 
 function skipSpace(string) {
+  string = string.replace(/#.*?\n/g, '')
   let first = string.search(/\S/);
   if (first === -1) return '';
   return string.slice(first);
@@ -47,7 +48,7 @@ function parseApply(expr, program) {
 
 function parse(program) {
   let {expr ,rest} = parseExpression(program);
-  if(skipSpace(rest).lenght > 0) {
+  if(skipSpace(rest).length > 0) {
     throw new SyntaxError('Unexpected text after program');
   }
   return expr;
@@ -56,6 +57,7 @@ function parse(program) {
 const specialForms = Object.create(null);
 
 function evaluate(expr, scope) {
+  console.log('expr',expr)
   if(expr.type === 'value') {
     return expr.value;
   } else if (expr.type === 'word') {
@@ -157,6 +159,7 @@ specialForms.fun = (args, scope) => {
   if(!args.length) {
     throw new SyntaxError('Functions need a body');
   }
+  console.log(args)
   let body = args[args.length - 1];
   let params = args.slice(0, args.length - 1).map(expr => {
     if (expr.type !== 'word') {
@@ -164,6 +167,8 @@ specialForms.fun = (args, scope) => {
     }
     return expr.name;
   });
+  // console.log('body', body,'params', params)
+  // console.log('scope', scope)
 
   return function() {
     if(arguments.length !== params.length) {
@@ -178,17 +183,21 @@ specialForms.fun = (args, scope) => {
 }
 
 run(`
-do(define(sum, fun(array, 
-  do(define(i,0),
-    define(sum,0),
-    while(<(i, length(array)),
-      do(
-        define(sum, +(sum, element(array, i))),
-        define(i, +(i, 1)),
-        print(sum))),
-      sum))),
-    print(sum(array(1,2,3,4))))
+do(define(f, fun(a, fun(b, +(a, b)))),
+   print(f(4)(5)))
 `);
+// run(`
+// do(define(sum, fun(array,
+//   do(define(i,0),
+//     define(sum,0),
+//     while(<(i, length(array)),
+//       do(
+//         define(sum, +(sum, element(array, i))),
+//         define(i, +(i, 1)),
+//         print(sum))),
+//       sum))),
+//     print(sum(array(1,2,3,4))))
+// `);
 
 
 // run(`
