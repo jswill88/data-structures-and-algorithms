@@ -120,6 +120,21 @@ specialForms.define = (args, scope) => {
   return value;
 };
 
+specialForms.set = (args, scope) => {
+  if(args.length !== 2 || args[0].type !== 'word') {
+    throw new SyntaxError('Incorrect use of define');
+  }
+  if(args[0].name in Object.getPrototypeOf(scope)) {
+    const value = evaluate(args[1], scope)
+    Object.getPrototypeOf(scope)[args[0].name] = value;
+    return value
+  } else {
+    throw new ReferenceError('no binding in scope')
+  }
+};
+
+
+
 const topScope = Object.create(null);
 
 topScope.true = true;
@@ -159,7 +174,7 @@ specialForms.fun = (args, scope) => {
   if(!args.length) {
     throw new SyntaxError('Functions need a body');
   }
-  console.log(args)
+
   let body = args[args.length - 1];
   let params = args.slice(0, args.length - 1).map(expr => {
     if (expr.type !== 'word') {
@@ -167,8 +182,6 @@ specialForms.fun = (args, scope) => {
     }
     return expr.name;
   });
-  // console.log('body', body,'params', params)
-  // console.log('scope', scope)
 
   return function() {
     if(arguments.length !== params.length) {
