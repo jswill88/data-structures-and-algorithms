@@ -22,7 +22,6 @@ const find_successor = function (root, key) {
   return null;
 };
 
-
 var root = new TreeNode(12)
 root.left = new TreeNode(7)
 root.right = new TreeNode(1)
