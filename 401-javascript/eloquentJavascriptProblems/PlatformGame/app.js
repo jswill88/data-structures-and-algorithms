@@ -196,10 +196,10 @@ DOMDisplay.prototype.scrollPlayerIntoView = function(state) {
   if(center.x < left + margin) {
     this.dom.scrollLeft = center.x - margin;
   } else if (center.x > right - margin) {
-    this.dom.scrollTop = center.y + margin - height;
+    this.dom.scrollLeft = center.x + margin - width;
   }
   if(center.y < top + margin) {
-    this.dom.scrollLeft = center.x - margin;
+    this.dom.scrollTop = center.y - margin;
   } else if (center.y > bottom - margin) {
     this.dom.scrollTop = center.y + margin - height;
   }
