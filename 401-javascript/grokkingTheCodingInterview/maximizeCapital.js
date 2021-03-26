@@ -12,7 +12,7 @@ const find_maximum_capital = function(capital, profits, numberOfProjects, initia
 
   for (let j = 0; j < numberOfProjects; j++) {
     while(capitalMinHeap.peek() && capitalMinHeap.peek()[0] <= totalCapital) {
-      const [_, k] = capitalMinHeap.pop();
+      const k = capitalMinHeap.pop()[1];
       profitsMaxHeap.push([profits[k], k]);
     }
 
@@ -20,10 +20,10 @@ const find_maximum_capital = function(capital, profits, numberOfProjects, initia
 
     totalCapital += profitsMaxHeap.pop()[0];
   }
-  
+
   return totalCapital;
 };
 
 
-console.log(`Maximum capital: ${find_maximum_capital([0, 1, 2], [1, 2, 3], 2, 1)}`)
-console.log(`Maximum capital: ${find_maximum_capital([0, 1, 2, 3], [1, 2, 3, 5], 3, 0)}`)
+console.log(`Maximum capital: ${find_maximum_capital([0, 1, 2], [1, 2, 3], 2, 1)}`);
+console.log(`Maximum capital: ${find_maximum_capital([0, 1, 2, 3], [1, 2, 3, 5], 3, 0)}`);
