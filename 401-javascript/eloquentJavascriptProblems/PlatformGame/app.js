@@ -1,15 +1,14 @@
-
-let simpleLevelPlan = `
-......................
-..#................#..
-..#..............=.#..
-..#.........o.o....#..
-..#.@.......####...#..
-..#####............#..
-......#++++++++++++#..
-......##############..
-......................
-`;
+// let simpleLevelPlan = [`
+// ......................
+// ..#................#..
+// ..#..............=.#..
+// ..#.........o.o....#..
+// ..#.@.......####...#..
+// ..#####............#..
+// ......#++++++++++++#..
+// ......##############..
+// ......................
+// `];
 
 class State {
   constructor(level, actors, status) {
@@ -206,10 +205,10 @@ DOMDisplay.prototype.scrollPlayerIntoView = function(state) {
   }
 };
 
-let simpleLevel = new Level(simpleLevelPlan);
-console.log(simpleLevel)
-let display = new DOMDisplay(document.body, simpleLevel);
-display.syncState(State.start(simpleLevel));
+// let simpleLevel = new Level(simpleLevelPlan);
+// console.log(simpleLevel)
+// let display = new DOMDisplay(document.body, simpleLevel);
+// display.syncState(State.start(simpleLevel));
 
 Level.prototype.touches = function(pos, size, type) {
   let xStart = Math.floor(pos.x);
@@ -229,7 +228,7 @@ Level.prototype.touches = function(pos, size, type) {
 
 State.prototype.update = function(time, keys) {
   let actors = this.actors
-    .map(actor => actor.update(this, this, keys));
+    .map(actor => actor.update(time, this, keys));
   let newState = new State(this.level, actors, this.status);
   if (newState.status !== 'playing') return newState;
 
@@ -310,4 +309,64 @@ Player.prototype.update = function(time, state, keys) {
   }
   return new Player(pos, new Vec(xSpeed, ySpeed));
 };
+
+function trackKeys(keys) {
+  let down = Object.create(null);
+  function track(event) {
+    if(keys.includes(event.key)) {
+      down[event.key] = event.type === 'keydown';
+      event.preventDefault();
+    }
+  }
+  window.addEventListener('keydown', track);
+  window.addEventListener('keyup', track);
+  return down;
+}
+
+const arrowKeys = trackKeys(['ArrowLeft', 'ArrowRight','ArrowUp']);
+
+function runAnimation(frameFunc) {
+  let lastTime = null;
+  function frame(time) {
+    if (lastTime !== null) {
+      let timeStep = Math.min(time - lastTime, 100) / 1000;
+      if (frameFunc(timeStep) === false) return;
+    }
+    lastTime = time;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+
+function runLevel(level, Display) {
+  let display = new Display(document.body, level);
+  let state = State.start(level);
+  let ending = 1;
+  return new Promise(resolve => {
+    runAnimation(time => {
+      state = state.update(time, arrowKeys);
+      display.syncState(state);
+      if (state.status === 'playing') {
+        return true;
+      } else if (ending > 0) {
+        ending -= time;
+        return true;
+      } else {
+        display.clear();
+        resolve(state.status);
+        return false;
+      }
+    });
+  });
+}
+
+async function runGame(plans, Display) {
+  for (let level = 0; level < plans.length;) {
+    let status = await runLevel(new Level(plans[level]), Display)
+      if (status === 'won') level++;
+  }
+  console.log('You\'ve won');
+}
+
 
