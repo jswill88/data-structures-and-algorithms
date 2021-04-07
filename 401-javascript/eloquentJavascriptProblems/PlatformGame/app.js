@@ -153,7 +153,7 @@ function drawGrid(level) {
   }, ...level.rows.map(row =>
     elt('tr', { style: `height: ${scale}px` },
       ...row.map(type => {
-        console.log('type', type)
+        // console.log('type', type)
         return elt('td', { class: type })
       }))
   ));
@@ -172,7 +172,7 @@ function drawActors(actors) {
 
 DOMDisplay.prototype.syncState = function (state) {
   if(this.actorLayer) this.actorLayer.remove();
-  console.log(state.actors)
+  // console.log(state.actors)
   this.actorLayer = drawActors(state.actors);
   this.dom.appendChild(this.actorLayer);
   this.dom.className = `game ${state.status}`;
@@ -362,9 +362,21 @@ function runLevel(level, Display) {
 }
 
 async function runGame(plans, Display) {
+  let lives = 3;
   for (let level = 0; level < plans.length;) {
     let status = await runLevel(new Level(plans[level]), Display)
-      if (status === 'won') level++;
+      if (status === 'won') {
+        lives = 3;
+        level++;
+      }
+      else if (status === 'lost') {
+        lives--;
+        console.log(`You have ${lives} li${lives === 1 ? 'fe' : 'ves'} left`)
+        if(lives === 0) {
+          lives = 3;
+          level = 0;
+        }
+      }
   }
   console.log('You\'ve won');
 }
