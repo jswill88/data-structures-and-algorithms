@@ -94,6 +94,27 @@ class Coin {
 
 Coin.prototype.size = new Vec(.6, .6);
 
+class Monster {
+  constructor(pos/* ... */) {
+    this.pos = pos;
+  }
+
+  get type() { return "monster"; }
+
+  static create(pos) {
+    return new Monster(pos.plus(new Vec(0, -1)));
+  }
+
+  update(time, state) {
+    // fix this to update position
+    return new Monster(this.pos)
+  }
+
+  collide(state) {}
+}
+
+Monster.prototype.size = new Vec(1.2, 2);
+
 const levelChars = {
   '.': 'empty',
   '#': 'wall',
@@ -103,6 +124,7 @@ const levelChars = {
   '=': Lava,
   '|': Lava,
   'v': Lava,
+  'M': Monster,
 };
 
 class Level {
@@ -384,6 +406,25 @@ function runLevel(level, Display) {
     runAnimation(frame);
   });
 };
+
+
+
+let monsterLevel = [`
+..................................
+.################################.
+.#..............................#.
+.#..............................#.
+.#..............................#.
+.#...........................o..#.
+.#..@...........................#.
+.##########..............########.
+..........#..o..o..o..o..#........
+..........#...........M..#........
+..........################........
+..................................
+`];
+
+
 
 async function runGame(plans, Display) {
   let lives = 3;
