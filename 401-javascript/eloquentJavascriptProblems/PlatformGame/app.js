@@ -95,22 +95,21 @@ class Coin {
 Coin.prototype.size = new Vec(.6, .6);
 
 class Monster {
-  constructor(pos/* ... */) {
+  constructor(pos, speed) {
     this.pos = pos;
+    this.speed = speed;
   }
 
   get type() { return "monster"; }
 
   static create(pos) {
-    return new Monster(pos.plus(new Vec(0, -1)));
+    return new Monster(pos.plus(new Vec(0, -1)), new Vec(2, 0));
   }
 
-  update(time, state) {
-    // fix this to update position
-    return new Monster(this.pos)
-  }
-
-  collide(state) { }
+  // update(time, state) {
+  //   // fix this to update position
+  //   return new Monster(this.pos.plus(this.speed), this.speed)
+  // }
 }
 
 Monster.prototype.size = new Vec(1.2, 2);
@@ -282,7 +281,7 @@ Monster.prototype.collide = function (state) {
   const player = state.actors.filter(actor => actor instanceof Player)[0];
   const xOverlap = player.pos.x + player.size.x - (this.pos.x + this.size.x)
   const yOverlap = player.pos.y + player.size.y - (this.pos.y + this.size.y)
-  
+
   if (Math.abs(yOverlap) > Math.abs(xOverlap))
     return new State(state.level, state.actors.filter(a => a !== this), state.status);
   else
@@ -306,6 +305,14 @@ Lava.prototype.update = function (time, state) {
     return new Lava(this.reset, this.speed, this.reset);
   } else {
     return new Lava(this.pos, this.speed.times(-1));
+  }
+}
+Monster.prototype.update = function (time, state) {
+  const newPos = this.pos.plus(this.speed.times(time))
+  if(!state.level.touches(newPos, this.size, 'wall')) {
+    return new Monster(newPos, this.speed);
+  } else {
+    return new Monster(this.pos, this.speed.times(-1))
   }
 }
 
