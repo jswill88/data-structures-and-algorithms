@@ -310,17 +310,21 @@ Player.prototype.update = function (time, state, keys) {
   return new Player(pos, new Vec(xSpeed, ySpeed));
 };
 
+function track(event, keys, down) {
+  if (keys.includes(event.key)) {
+    down[event.key] = event.type === 'keydown';
+    event.preventDefault();
+  }
+}
+
 function trackKeys(keys) {
   let down = Object.create(null);
-  function track(event) {
-    if (keys.includes(event.key)) {
-      down[event.key] = event.type === 'keydown';
-      // console.log('key pressed')
-      event.preventDefault();
-    }
+  window.addEventListener('keydown', e => track(e, keys, down));
+  window.addEventListener('keyup', e => track(e, keys, down));
+  down.unregister = () => {
+    window.removeEventListener('keydown', e => track(e, keys, down));
+    window.removeEventListener('keyup', e => track(e, keys, down));
   }
-  window.addEventListener('keydown', track);
-  window.addEventListener('keyup', track);
   return down;
 }
 
@@ -347,7 +351,7 @@ function runLevel(level, Display) {
   const paused = { current: false }
   return new Promise(resolve => {
 
-    window.addEventListener('keydown', e => {
+    const escapeHandler = e => {
       e.preventDefault()
       if (e.key === 'Escape') {
         console.log('paused current', paused.current);
@@ -355,7 +359,8 @@ function runLevel(level, Display) {
             runAnimation(frame)
       }
       return;
-    })
+    }
+    window.addEventListener('keydown',escapeHandler)
 
     const frame = time => {
       if (paused.current) {
@@ -370,6 +375,8 @@ function runLevel(level, Display) {
         return true;
       } else {
         display.clear();
+        window.addEventListener('keydown',escapeHandler)
+        arrowKeys.unregister();
         resolve(state.status);
         return false;
       }
