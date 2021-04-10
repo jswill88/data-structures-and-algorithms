@@ -110,7 +110,7 @@ class Monster {
     return new Monster(this.pos)
   }
 
-  collide(state) {}
+  collide(state) { }
 }
 
 Monster.prototype.size = new Vec(1.2, 2);
@@ -278,6 +278,17 @@ Lava.prototype.collide = function (state) {
   return new State(state.level, state.actors, 'lost');
 };
 
+Monster.prototype.collide = function (state) {
+  const player = state.actors.filter(actor => actor instanceof Player)[0];
+  const xOverlap = player.pos.x + player.size.x - (this.pos.x + this.size.x)
+  const yOverlap = player.pos.y + player.size.y - (this.pos.y + this.size.y)
+  
+  if (Math.abs(yOverlap) > Math.abs(xOverlap))
+    return new State(state.level, state.actors.filter(a => a !== this), state.status);
+  else
+    return new State(state.level, state.actors, 'lost')
+};
+
 Coin.prototype.collide = function (state) {
   let filtered = state.actors.filter(a => {
     return a !== this;
@@ -378,11 +389,11 @@ function runLevel(level, Display) {
       if (e.key === 'Escape') {
         console.log('paused current', paused.current);
         paused.current = !paused.current
-            runAnimation(frame)
+        runAnimation(frame)
       }
       return;
     }
-    window.addEventListener('keydown',escapeHandler)
+    window.addEventListener('keydown', escapeHandler)
 
     const frame = time => {
       if (paused.current) {
@@ -397,7 +408,7 @@ function runLevel(level, Display) {
         return true;
       } else {
         display.clear();
-        window.addEventListener('keydown',escapeHandler)
+        window.addEventListener('keydown', escapeHandler)
         arrowKeys.unregister();
         resolve(state.status);
         return false;
