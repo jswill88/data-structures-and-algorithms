@@ -339,39 +339,44 @@ function runAnimation(frameFunc) {
   requestAnimationFrame(frame);
 }
 
-const paused = { current: false, time: 0 }
 
-window.addEventListener('keydown', e => {
-  e.preventDefault()
-  if (e.key === 'Escape') {
-    console.log('paused current', paused.current);
-    paused.current = !paused.current;
-  }
-})
 function runLevel(level, Display) {
   let display = new Display(document.body, level);
   let state = State.start(level);
   let ending = 1;
+  const paused = { current: false }
   return new Promise(resolve => {
-    runAnimation(time => {
-      time += paused.time;
-      if (paused.current === false) {
-        state = state.update(time, arrowKeys);
-        display.syncState(state);
-        if (state.status === 'playing') {
-          return true;
-        } else if (ending > 0) {
-          ending -= time;
-          return true;
-        } else {
-          display.clear();
-          resolve(state.status);
-          return false;
-        }
+
+    window.addEventListener('keydown', e => {
+      e.preventDefault()
+      if (e.key === 'Escape') {
+        console.log('paused current', paused.current);
+        paused.current = !paused.current
+            runAnimation(frame)
       }
-    });
+      return;
+    })
+
+    const frame = time => {
+      if (paused.current) {
+        return false
+      }
+      state = state.update(time, arrowKeys);
+      display.syncState(state);
+      if (state.status === 'playing') {
+        return true;
+      } else if (ending > 0) {
+        ending -= time;
+        return true;
+      } else {
+        display.clear();
+        resolve(state.status);
+        return false;
+      }
+    }
+    runAnimation(frame);
   });
-}
+};
 
 async function runGame(plans, Display) {
   let lives = 3;
