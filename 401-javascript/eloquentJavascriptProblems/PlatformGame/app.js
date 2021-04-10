@@ -161,7 +161,7 @@ function drawGrid(level) {
 
 function drawActors(actors) {
   return elt('div', {}, ...actors.map(actor => {
-    let rect = elt('div', {class: `actor ${actor.type}`});
+    let rect = elt('div', { class: `actor ${actor.type}` });
     rect.style.width = `${actor.size.x * scale}px`;
     rect.style.height = `${actor.size.y * scale}px`;
     rect.style.left = `${actor.pos.x * scale}px`;
@@ -171,17 +171,17 @@ function drawActors(actors) {
 }
 
 DOMDisplay.prototype.syncState = function (state) {
-  if(this.actorLayer) this.actorLayer.remove();
+  if (this.actorLayer) this.actorLayer.remove();
   // console.log(state.actors)
   this.actorLayer = drawActors(state.actors);
   this.dom.appendChild(this.actorLayer);
   this.dom.className = `game ${state.status}`;
   this.scrollPlayerIntoView(state);
 }
-DOMDisplay.prototype.scrollPlayerIntoView = function(state) {
+DOMDisplay.prototype.scrollPlayerIntoView = function (state) {
   let width = this.dom.clientWidth;
   let height = this.dom.clientHeight;
-  let margin = width/3;
+  let margin = width / 3;
 
   // The viewport
   let left = this.dom.scrollLeft;
@@ -193,12 +193,12 @@ DOMDisplay.prototype.scrollPlayerIntoView = function(state) {
   let center = player.pos
     .plus(player.size.times(.5)).times(scale);
 
-  if(center.x < left + margin) {
+  if (center.x < left + margin) {
     this.dom.scrollLeft = center.x - margin;
   } else if (center.x > right - margin) {
     this.dom.scrollLeft = center.x + margin - width;
   }
-  if(center.y < top + margin) {
+  if (center.y < top + margin) {
     this.dom.scrollTop = center.y - margin;
   } else if (center.y > bottom - margin) {
     this.dom.scrollTop = center.y + margin - height;
@@ -210,7 +210,7 @@ DOMDisplay.prototype.scrollPlayerIntoView = function(state) {
 // let display = new DOMDisplay(document.body, simpleLevel);
 // display.syncState(State.start(simpleLevel));
 
-Level.prototype.touches = function(pos, size, type) {
+Level.prototype.touches = function (pos, size, type) {
   let xStart = Math.floor(pos.x);
   let xEnd = Math.ceil(pos.x + size.x);
   let yStart = Math.floor(pos.y);
@@ -220,13 +220,13 @@ Level.prototype.touches = function(pos, size, type) {
     for (let x = xStart; x < xEnd; x++) {
       let isOutside = x < 0 || x >= this.width || y < 0 || y >= this.height;
       let here = isOutside ? 'wall' : this.rows[y][x];
-      if(here === type) return true;
+      if (here === type) return true;
     }
   }
   return false;
 };
 
-State.prototype.update = function(time, keys) {
+State.prototype.update = function (time, keys) {
   let actors = this.actors
     .map(actor => actor.update(time, this, keys));
   let newState = new State(this.level, actors, this.status);
@@ -247,17 +247,17 @@ State.prototype.update = function(time, keys) {
 
 function overlap(actor1, actor2) {
   return actor1.pos.x + actor1.size.x > actor2.pos.x &&
-         actor1.pos.x < actor2.pos.x + actor2.size.x &&
-         actor1.pos.y + actor1.size.y > actor2.pos.y &&
-         actor1.pos.y < actor2.pos.y + actor2.size.y;
+    actor1.pos.x < actor2.pos.x + actor2.size.x &&
+    actor1.pos.y + actor1.size.y > actor2.pos.y &&
+    actor1.pos.y < actor2.pos.y + actor2.size.y;
 }
 
-Lava.prototype.collide = function(state) {
+Lava.prototype.collide = function (state) {
   return new State(state.level, state.actors, 'lost');
 };
 
-Coin.prototype.collide = function(state) {
-  let filtered = state.actors.filter( a => {
+Coin.prototype.collide = function (state) {
+  let filtered = state.actors.filter(a => {
     return a !== this;
   });
   let status = state.status;
@@ -265,9 +265,9 @@ Coin.prototype.collide = function(state) {
   return new State(state.level, filtered, status);
 }
 
-Lava.prototype.update = function(time, state) {
+Lava.prototype.update = function (time, state) {
   let newPos = this.pos.plus(this.speed.times(time));
-  if(!state.level.touches(newPos, this.size, 'wall')) {
+  if (!state.level.touches(newPos, this.size, 'wall')) {
     return new Lava(newPos, this.speed, this.reset);
   } else if (this.reset) {
     return new Lava(this.reset, this.speed, this.reset);
@@ -288,13 +288,13 @@ const playerXSpeed = 7;
 const gravity = 30;
 const jumpSpeed = 17;
 
-Player.prototype.update = function(time, state, keys) {
+Player.prototype.update = function (time, state, keys) {
   let xSpeed = 0;
   if (keys.ArrowLeft) xSpeed -= playerXSpeed;
   if (keys.ArrowRight) xSpeed += playerXSpeed;
   let pos = this.pos;
   let movedX = pos.plus(new Vec(xSpeed * time, 0));
-  if(!state.level.touches(movedX, this.size, 'wall')) {
+  if (!state.level.touches(movedX, this.size, 'wall')) {
     pos = movedX;
   }
 
@@ -313,8 +313,9 @@ Player.prototype.update = function(time, state, keys) {
 function trackKeys(keys) {
   let down = Object.create(null);
   function track(event) {
-    if(keys.includes(event.key)) {
+    if (keys.includes(event.key)) {
       down[event.key] = event.type === 'keydown';
+      // console.log('key pressed')
       event.preventDefault();
     }
   }
@@ -323,7 +324,7 @@ function trackKeys(keys) {
   return down;
 }
 
-const arrowKeys = trackKeys(['ArrowLeft', 'ArrowRight','ArrowUp']);
+const arrowKeys = trackKeys(['ArrowLeft', 'ArrowRight', 'ArrowUp']);
 
 function runAnimation(frameFunc) {
   let lastTime = null;
@@ -338,31 +339,35 @@ function runAnimation(frameFunc) {
   requestAnimationFrame(frame);
 }
 
+const paused = { current: false, time: 0 }
 
+window.addEventListener('keydown', e => {
+  e.preventDefault()
+  if (e.key === 'Escape') {
+    console.log('paused current', paused.current);
+    paused.current = !paused.current;
+  }
+})
 function runLevel(level, Display) {
   let display = new Display(document.body, level);
   let state = State.start(level);
   let ending = 1;
-  window.addEventListener('keydown', e => {
-    e.preventDefault()
-    if(e.key === 'Escape') {
-      console.log('escape pressed');
-    }
-  })
-
   return new Promise(resolve => {
     runAnimation(time => {
-      state = state.update(time, arrowKeys);
-      display.syncState(state);
-      if (state.status === 'playing') {
-        return true;
-      } else if (ending > 0) {
-        ending -= time;
-        return true;
-      } else {
-        display.clear();
-        resolve(state.status);
-        return false;
+      time += paused.time;
+      if (paused.current === false) {
+        state = state.update(time, arrowKeys);
+        display.syncState(state);
+        if (state.status === 'playing') {
+          return true;
+        } else if (ending > 0) {
+          ending -= time;
+          return true;
+        } else {
+          display.clear();
+          resolve(state.status);
+          return false;
+        }
       }
     });
   });
@@ -372,18 +377,18 @@ async function runGame(plans, Display) {
   let lives = 3;
   for (let level = 0; level < plans.length;) {
     let status = await runLevel(new Level(plans[level]), Display)
-      if (status === 'won') {
+    if (status === 'won') {
+      lives = 3;
+      level++;
+    }
+    else if (status === 'lost') {
+      lives--;
+      console.log(`You have ${lives} li${lives === 1 ? 'fe' : 'ves'} left`)
+      if (lives === 0) {
         lives = 3;
-        level++;
+        level = 0;
       }
-      else if (status === 'lost') {
-        lives--;
-        console.log(`You have ${lives} li${lives === 1 ? 'fe' : 'ves'} left`)
-        if(lives === 0) {
-          lives = 3;
-          level = 0;
-        }
-      }
+    }
   }
   console.log('You\'ve won');
 }
