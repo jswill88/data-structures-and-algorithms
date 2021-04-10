@@ -343,6 +343,13 @@ function runLevel(level, Display) {
   let display = new Display(document.body, level);
   let state = State.start(level);
   let ending = 1;
+  window.addEventListener('keydown', e => {
+    e.preventDefault()
+    if(e.key === 'Escape') {
+      console.log('escape pressed');
+    }
+  })
+
   return new Promise(resolve => {
     runAnimation(time => {
       state = state.update(time, arrowKeys);
