@@ -1,0 +1,24 @@
+<!doctype html>
+<canvas width="600" height="200"></canvas>
+<script>
+  let cx = document.querySelector("canvas").getContext("2d");
+  
+  const trapezoid = (height, topWidth, bottomWidth, topOffset, leftOffset) => {
+	cx.beginPath()
+    const diff = leftOffset + Math.abs((bottomWidth - topWidth) / 2)
+    const topLeft = topWidth > bottomWidth ? leftOffset : diff;
+    const topRight = topWidth > bottomWidth ? 
+          leftOffset + topWidth : diff + topWidth;
+    const bottomRight = topWidth > bottomWidth ?
+          bottomWidth + diff : bottomWidth + leftOffset ;
+    const bottomLeft = topWidth > bottomWidth ?
+          diff : leftOffset;
+  	cx.moveTo(topLeft, topOffset)
+  	cx.lineTo(topRight, topOffset)
+  	cx.lineTo(bottomRight, topOffset + height)
+  	cx.lineTo(bottomLeft, topOffset + height)
+  	cx.closePath()
+  	cx.stroke()
+  }
+  trapezoid(50, 200, 50, 50, 40)
+</script>
