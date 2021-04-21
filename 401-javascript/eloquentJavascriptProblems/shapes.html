@@ -44,5 +44,20 @@
                   cx.resetTransform()
             }
             redDiamond(100, 300, 50)
+
+            const zigZag = (length, x, y) => {
+                  cx.beginPath()
+                  const distance = Math.sqrt(length * length - 100)
+                  cx.moveTo(x,y)
+                  for(let i = 0; i < 11; i++) {
+                        if(!(i % 2)) {
+                              cx.lineTo(x, y + i * 10)
+                        } else {
+                              cx.lineTo(x + distance, y + i * 10)
+                        }
+                  }
+                  cx.stroke()
+            }
+            zigZag(100, 450, 30)
       </script>
 </body>
