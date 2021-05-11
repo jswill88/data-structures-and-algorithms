@@ -27,10 +27,10 @@ const rearrange_string = function(str) {
     prevFreq = num - 1;
   }
 
-  return sorted.join('');
+  return sorted.length === str.length ? sorted.join('') : '';
 };
 
 
 console.log(`Rearranged string: ${rearrange_string('aappp')}`)
 console.log(`Rearranged string: ${rearrange_string('Programming')}`)
-console.log(`Rearranged string: ${rearrange_string('aapra')}`)
+console.log(`Rearranged string: ${rearrange_string('aapa')}`)
