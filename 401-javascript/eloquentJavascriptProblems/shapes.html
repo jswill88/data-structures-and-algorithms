@@ -4,7 +4,7 @@
 
       <head></head>
 
-      <canvas width="600" height="200"></canvas>
+      <canvas width="1000" height="200"></canvas>
 
       <script>
             let cx = document.querySelector("canvas").getContext("2d");
@@ -26,7 +26,7 @@
                   cx.closePath()
                   cx.stroke()
             }
-            trapezoid(50, 200, 50, 50, 40)
+            trapezoid(80, 80, 200, 50, 40)
 
             const redDiamond = (width, x, y) => {
                   const amountToMove = width/2
@@ -60,7 +60,16 @@
             }
             zigZag(100, 450, 30)
 
-            const swirl = (x, y) => {}
-            swirl();
+            const swirl = (x,y) => {
+                  cx.beginPath();
+                  let angle = 0;
+                  cx.moveTo(x, y);
+                  for(let i = 1; i < 101; i++) {
+                        cx.lineTo(x + i * Math.cos(angle), y + i * Math.sin(angle));
+                        angle += Math.PI/16;
+                  }
+                  cx.stroke();
+            }
+            swirl(670, 100);
       </script>
 </body>
