@@ -71,5 +71,24 @@
                   cx.stroke();
             }
             swirl(670, 100);
+
+
+            const star = (x, y, radius) => {
+                  cx.beginPath();
+                  let angle = 0;
+                  cx.moveTo(x + radius * Math.cos(angle), y + radius * Math.sin(angle));
+                  while(angle <= (2 * Math.PI)) {
+                        cx.quadraticCurveTo(
+                              x,
+                              y,
+                              x + radius * Math.cos(angle),
+                              y + radius * Math.sin(angle)
+                        );
+                        angle += Math.PI/4;
+                  }
+                  ['strokeStyle','fillStyle'].forEach(style => cx[style] = 'gold');
+                  cx.fill();
+            }
+            star(870, 100, 90)
       </script>
 </body>
