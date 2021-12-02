@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS Workbench</title>
+</head>
+<body>
+  <textarea>return </textarea>
+  <button>See output</button>
+  <pre></pre>
+
+  <script>
+    let input = document.querySelector('textarea');
+    let button = document.querySelector('button');
+    let output = document.querySelector('pre');
+
+    button.addEventListener('click', () => {
+
+      let func = Function('', input.value);
+      try {
+        output.textContent = func();
+      }  catch (e) {
+        output.textContent = e;
+      }
+    })
+
+  </script>
+</body>
+</html>

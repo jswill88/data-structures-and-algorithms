@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conways Game of Life</title>
+</head>
+<body>
+  <div class="grid"></div>
+  <button class="generate">Next Generation</button>
+  <button class="auto">Auto Run</button>
+
+  <script>
+    let grid = document.querySelector('.grid');
+    let curr = [];
+    let next = [];
+
+    let deepCopy = (from, to) => {
+      while(to.length) to.pop();
+      for(let i = 0; i < from.length; i++) {
+        to.push([...from[i]]);
+      }
+    }
+
+    let fillArr = (width = 8, height = 8) => {
+      for (let i = 0; i < height; i++) {
+        curr.push([]);
+        for (let j = 0; j < width; j++) {
+          curr[i].push(Math.floor(Math.random() * 2))
+        }
+      }
+      deepCopy(curr, next);
+    }
+
+    let createGrid = () => {
+      for (let i = 0; i < curr.length; i++) {
+        let row = document.createElement('div');
+        row.dataset.row = i;
+        grid.appendChild(row);
+        for (let j = 0; j < curr[0].length; j++) {
+          let input = document.createElement('input');
+          input.dataset.coords = [i,j];
+          input.type = 'checkbox';
+          row.append(input);
+        }
+      }
+    }
+
+    let fillGrid = () => {
+      for (let i = 0; i < curr.length; i++) {
+        for (let j = 0; j < curr[0].length; j++) {
+          let input = document.querySelector(`[data-coords="${i},${j}"]`);
+          if(curr[i][j]) {
+            input.checked = true;
+          } else {
+            input.checked = false;
+          }
+        }
+      }
+    }
+
+    let nextGen = () => {
+      for (let i = 0; i < curr.length; i++) {
+        for (let j = 0; j < curr[0].length; j++) {
+          let activeSibs = 0;
+          for(let k = -1; k < 2; k++) {
+            for(let l = -1; l < 2; l++) {
+              if(curr[i + k] !== undefined && curr[i + k][j + l] === 1 && (k || l)) {
+                activeSibs++;
+              }
+            }
+          }
+          if(activeSibs === 3 || (activeSibs === 2 && curr[i][j] === 1)) {
+            next[i][j] = 1;
+          } else {
+            next[i][j] = 0;
+          }
+        }
+      }
+      deepCopy(next, curr);
+      fillGrid();
+    }
+
+    const autoPlay = () => {
+      let interval = setInterval(() => nextGen(), 100);
+      document.querySelector('.auto').removeEventListener('click', autoPlay);
+      const _stop = () => {
+        clearInterval(interval);
+        document.querySelector('.auto').addEventListener('click', autoPlay);
+      }
+      document.querySelector('.auto').addEventListener('click', _stop);
+    }
+
+    document.querySelector('.generate').addEventListener('click', nextGen);
+    document.querySelector('.auto').addEventListener('click', autoPlay);
+
+    grid.addEventListener('change', e => {
+      const [row,col] = e.target.dataset.coords.split(',');
+      curr[row][col] = e.target.value ? 1 : 0;
+    })
+
+    fillArr(30, 20);
+    createGrid();
+    fillGrid();
+
+  </script>
+</body>
+</html>

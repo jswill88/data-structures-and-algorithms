@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+  <canvas width="1000" height="1000"></canvas>
+  <script>
+    let canvas = document.querySelector('canvas')
+    let cx = canvas.getContext("2d");
+    let directions = {
+      x: true,
+      y: true
+    }
+    let locations = {
+      x: 111,
+      y: 111,
+    }
+    let boundaries = {
+      left: 100,
+      top: 100,
+      right: 700,
+      bottom: 500
+    }
+
+    let lastTime = null;
+    function frame(time) {
+      if(lastTime) {
+        updateAnimation(Math.min(100, time - lastTime) / 1000);
+      }
+      lastTime = time;
+      requestAnimationFrame(frame)
+    }
+    requestAnimationFrame(frame)
+    
+    const makeSquare = (x, y, width, height) => {
+      cx.strokeRect(x,y,width,height);
+    }
+
+    const ball = (x, y, radius) => {
+      cx.arc(x, y, radius, 0, 7);
+      cx.fillStyle = 'red';
+      cx.fill();
+    } 
+
+    function updateAnimation(step) {
+      cx.clearRect(0, 0, canvas.width, canvas.height);
+      cx.beginPath()
+      makeSquare(100, 100, 600, 400);
+      ball(locations.x, locations.y, 10);
+      if(locations.x - 11 < boundaries.left || locations.x + 11 > boundaries.right) {
+        directions.x = !directions.x
+      }
+      if(locations.y - 11 < boundaries.top || locations.y + 11 > boundaries.bottom) {
+        directions.y = !directions.y
+      }
+      
+      ['x','y'].forEach(axis => locations[axis] += directions[axis] ? 3 : -3)
+    }
+
+
+  </script>
+  
+</body>
+</html>
